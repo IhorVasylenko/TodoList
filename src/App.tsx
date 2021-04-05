@@ -8,13 +8,13 @@ export type TasksType = {
     title: string
 }
 
-const App = () => {
-    const tasks1 = [
+function App () {
+    const tasks1: Array<TasksType> = [
         {id: 0, isDone: true, title: 'HTML'},
         {id: 1, isDone: false, title: 'CSS'},
         {id: 2, isDone: true, title: 'React'}
     ]
-    const tasks2 = [
+    const tasks2: Array<TasksType> = [
         {id: 4, isDone: false, title: 'Beer'},
         {id: 5, isDone: true, title: 'Water'},
         {id: 6, isDone: false, title: 'Milk'}
