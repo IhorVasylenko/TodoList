@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="77edd79c-df62-4496-82cc-df46b73d0a14" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/AddItemForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EditableSpan.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.yarn/build-state.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/build-state.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.yarn/install-state.gz" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/install-state.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TodoList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/TodoList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
@@ -28,13 +31,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SocialNetwork/social-netwotk-app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test-todoList-app" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="ts.external.directory.path" value="yarn:package.json:typescript" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\React\incubator\TodoList\my-todoList-app\src" />
+    </key>
     <key name="es6.move.members.recent.items">
       <recent name="D:\React\incubator\TodoList\my-todoList-app\src\TodoList.tsx" />
       <recent name="D:\React\incubator\SocialNetwork\my-social-network-app\src\Todolist.tsx" />
@@ -82,7 +88,19 @@
       <workItem from="1617978990435" duration="1208000" />
       <workItem from="1618046435776" duration="588000" />
       <workItem from="1618230626868" duration="1357000" />
-      <workItem from="1618238343053" duration="9625000" />
+      <workItem from="1618238343053" duration="9992000" />
+      <workItem from="1618254506669" duration="2601000" />
+      <workItem from="1618843793753" duration="12016000" />
+      <workItem from="1619192039224" duration="1839000" />
+      <workItem from="1619530344021" duration="10842000" />
+      <workItem from="1619882430282" duration="1510000" />
+      <workItem from="1619886438437" duration="1847000" />
+      <workItem from="1620139235080" duration="10957000" />
+      <workItem from="1620200920758" duration="53000" />
+      <workItem from="1620726662356" duration="887000" />
+      <workItem from="1620735664958" duration="532000" />
+      <workItem from="1620736407262" duration="243000" />
+      <workItem from="1620739675650" duration="212000" />
     </task>
     <servers />
   </component>
