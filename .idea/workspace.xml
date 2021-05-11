@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="77edd79c-df62-4496-82cc-df46b73d0a14" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/AddItemForm.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EditableSpan.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.yarn/build-state.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/build-state.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.yarn/install-state.gz" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/install-state.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AddItemForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AddItemForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EditableSpan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/EditableSpan.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TodoList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/TodoList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +27,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test-todoList-app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="ts.external.directory.path" value="yarn:package.json:typescript" />
@@ -101,7 +97,16 @@
       <workItem from="1620735664958" duration="532000" />
       <workItem from="1620736407262" duration="243000" />
       <workItem from="1620739675650" duration="212000" />
+      <workItem from="1620745407601" duration="11487000" />
     </task>
+    <task id="LOCAL-00001" summary="form and span">
+      <created>1620745546491</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1620745546491</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,5 +123,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="form and span" />
+    <option name="LAST_COMMIT_MESSAGE" value="form and span" />
   </component>
 </project>
