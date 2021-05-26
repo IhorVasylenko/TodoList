@@ -18,7 +18,7 @@ export type TasksType = {
     isDone: boolean
     title: string
 }
-export type TaskStateType= {
+export type TasksStateType = {
     [key: string] : Array<TasksType>
 }
 
@@ -31,7 +31,7 @@ function App() {
         {id: todoListId_1, title: 'What should be done', filter: 'all'},
         {id: todoListId_2, title: 'What to buy', filter: 'all'}
     ])
-    const [tasks, setTasks] = useState<TaskStateType>({
+    const [tasks, setTasks] = useState<TasksStateType>({
         [todoListId_1]: [
             {id: v1(), title: 'To plant a tree', isDone: false},
             {id: v1(), title: 'Build a house', isDone: false},
@@ -117,7 +117,6 @@ function App() {
             )
         }
     )
-
 
     return (
         <div className={"App"}>
