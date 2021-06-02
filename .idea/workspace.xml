@@ -2,13 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="77edd79c-df62-4496-82cc-df46b73d0a14" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/store/ todolistsTasksReducer.test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/taskReducer.test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/tasksReducer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AppWithReducer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/todoListsReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/todoListsReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.yarn/install-state.gz" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/install-state.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/taskReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/taskReducer.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/tasksReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/tasksReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/todoListsReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/todoListsReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +48,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test-todoList-app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs.jest.jest_package" value="yarn:package.json:react-scripts" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
@@ -54,16 +57,16 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\React\incubator\TodoList\my-todoList-app\src" />
       <recent name="D:\React\incubator\TodoList\my-todoList-app\src\store" />
       <recent name="D:\React\incubator\TodoList\my-todoList-app\src\state" />
-      <recent name="D:\React\incubator\TodoList\my-todoList-app\src" />
     </key>
     <key name="es6.move.members.recent.items">
       <recent name="D:\React\incubator\TodoList\my-todoList-app\src\TodoList.tsx" />
       <recent name="D:\React\incubator\SocialNetwork\my-social-network-app\src\Todolist.tsx" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.correct todolist should be removed">
+  <component name="RunManager" selected="Jest.correct todolist should change its name">
     <configuration name="correct todolist should be removed" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -77,15 +80,17 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="build" />
-      </scripts>
+    <configuration name="correct todolist should change its name" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
-      <package-manager value="C:\Program Files\nodejs\node_modules\yarn" />
+      <node-options value="" />
+      <jest-package value="yarn:package.json:react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
       <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/store/todoListsReducer.test.ts" />
+      <test-names>
+        <test-name value="correct todolist should change its name" />
+      </test-names>
       <method v="2" />
     </configuration>
     <configuration name="eject" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
@@ -123,11 +128,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.test" />
+        <item itemvalue="Jest.correct todolist should change its name" />
         <item itemvalue="Jest.correct todolist should be removed" />
         <item itemvalue="npm.eject" />
-        <item itemvalue="npm.build" />
-        <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
   </component>
@@ -185,6 +190,10 @@
       <workItem from="1621509626997" duration="88000" />
       <workItem from="1621510552300" duration="27000" />
       <workItem from="1622036775501" duration="10446000" />
+      <workItem from="1622054640454" duration="937000" />
+      <workItem from="1622176948644" duration="34000" />
+      <workItem from="1622633390288" duration="4567000" />
+      <workItem from="1622651896698" duration="1626000" />
     </task>
     <task id="LOCAL-00001" summary="form and span">
       <created>1620745546491</created>
@@ -207,7 +216,21 @@
       <option name="project" value="LOCAL" />
       <updated>1621361979544</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="reducer 2">
+      <created>1622054702315</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1622054702315</updated>
+    </task>
+    <task id="LOCAL-00005" summary="reducer 2.1">
+      <created>1622054975147</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1622054975147</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,6 +252,8 @@
     <MESSAGE value="form and span" />
     <MESSAGE value="material ua" />
     <MESSAGE value="18.05 reducer" />
-    <option name="LAST_COMMIT_MESSAGE" value="18.05 reducer" />
+    <MESSAGE value="reducer 2" />
+    <MESSAGE value="reducer 2.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="reducer 2.1" />
   </component>
 </project>
