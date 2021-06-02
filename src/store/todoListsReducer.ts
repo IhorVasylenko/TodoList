@@ -22,19 +22,28 @@ export type ChangeTodoListFilterAT = {
 }
 export type ActionUnionType = RemoveTodoListAT | AddTodoListAT | ChangeTodoListTitleAT | ChangeTodoListFilterAT
 
-export const todoListsReducer = (todoLists: Array<TodoListType>, action: ActionUnionType): Array<TodoListType> => {
+export const todoListId_1 = v1()
+export const todoListId_2 = v1()
+
+let initialState: Array<TodoListType> = [
+    {id: todoListId_1, title: 'What should be done', filter: 'all'},
+    {id: todoListId_2, title: 'What to buy', filter: 'all'},
+] as Array<TodoListType>
+export type InitialTodoListStateType = typeof initialState
+
+export const todoListsReducer = (state = initialState, action: ActionUnionType): InitialTodoListStateType => {
     switch (action.type) {
         case "REMOVE-TODOLIST":
-            return todoLists.filter(tl => tl.id !== action.todoListId)
+            return state.filter(tl => tl.id !== action.todoListId)
         case "ADD-TODOLIST":
             const newTodoList: TodoListType = {id: action.todoListId, title: action.title, filter: 'all'}
-            return [newTodoList, ...todoLists]
+            return [newTodoList, ...state]
         case "CHANGE-TODOLIST-TITLE":
-            return todoLists.map( tl => tl.id === action.todoListId ? {...tl, title: action.title} : tl)
+            return state.map( tl => tl.id === action.todoListId ? {...tl, title: action.title} : tl)
         case "CHANGE-TODOLIST-FILTER":
-            return todoLists.map( tl => tl.id === action.todoListId ? {...tl, filter: action.filter} : tl)
+            return state.map( tl => tl.id === action.todoListId ? {...tl, filter: action.filter} : tl)
         default:
-            throw todoLists
+            return state
     }
 }
 
