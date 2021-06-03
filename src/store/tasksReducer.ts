@@ -1,6 +1,6 @@
 import {TasksStateType, TasksType} from "../App";
 import {v1} from "uuid";
-import {AddTodoListAT, RemoveTodoListAT, todoListId_1, todoListId_2} from "./todoListsReducer";
+import {AddTodoListAT, RemoveTodoListAT/*, todoListId_1, todoListId_2*/} from "./todoListsReducer";
 
 export type RemoveTaskAT = {
     type: 'REMOVE_TASK'
@@ -29,7 +29,7 @@ export type ActionUnionType = RemoveTaskAT | AddTaskAT | ChangeTaskStatusAT
 
 
 
-let initialState: TasksStateType = {
+let initialState: TasksStateType = {/*
     [todoListId_1]: [
         {id: v1(), title: 'To plant a tree', isDone: false},
         {id: v1(), title: 'Build a house', isDone: false},
@@ -39,7 +39,7 @@ let initialState: TasksStateType = {
         {id: v1(), title: 'Motorcycle', isDone: false},
         {id: v1(), title: 'New car', isDone: false}
     ],
-} as TasksStateType
+*/} as TasksStateType
 export type InitialTasksStateType = typeof initialState
 
 export const tasksReducer = (state: InitialTasksStateType = initialState, action: ActionUnionType): InitialTasksStateType=> {

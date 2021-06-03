@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="77edd79c-df62-4496-82cc-df46b73d0a14" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/state/store.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppWithReducer.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/tasksReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/tasksReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/todoListsReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/todoListsReducer.ts" afterDir="false" />
     </list>
@@ -45,7 +41,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../copy-my-todo-app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SocialNetwork/social-netwotk-app" />
     <property name="nodejs.jest.jest_package" value="yarn:package.json:react-scripts" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
@@ -191,7 +187,8 @@
       <workItem from="1622176948644" duration="34000" />
       <workItem from="1622633390288" duration="4567000" />
       <workItem from="1622651896698" duration="2602000" />
-      <workItem from="1622654515353" duration="5945000" />
+      <workItem from="1622654515353" duration="6447000" />
+      <workItem from="1622704650596" duration="373000" />
     </task>
     <task id="LOCAL-00001" summary="form and span">
       <created>1620745546491</created>
@@ -235,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622653654014</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="start Redux">
+      <created>1622660847330</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1622660847330</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,6 +264,7 @@
     <MESSAGE value="reducer 2" />
     <MESSAGE value="reducer 2.1" />
     <MESSAGE value="useReducer" />
-    <option name="LAST_COMMIT_MESSAGE" value="useReducer" />
+    <MESSAGE value="start Redux" />
+    <option name="LAST_COMMIT_MESSAGE" value="start Redux" />
   </component>
 </project>

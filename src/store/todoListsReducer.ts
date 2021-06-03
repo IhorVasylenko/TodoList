@@ -22,13 +22,13 @@ export type ChangeTodoListFilterAT = {
 }
 export type ActionUnionType = RemoveTodoListAT | AddTodoListAT | ChangeTodoListTitleAT | ChangeTodoListFilterAT
 
-export const todoListId_1 = v1()
-export const todoListId_2 = v1()
+// export const todoListId_1 = v1()
+// export const todoListId_2 = v1()
 
-let initialState: Array<TodoListType> = [
+let initialState: Array<TodoListType> = [/*
     {id: todoListId_1, title: 'What should be done', filter: 'all'},
     {id: todoListId_2, title: 'What to buy', filter: 'all'},
-] as Array<TodoListType>
+*/] as Array<TodoListType>
 export type InitialTodoListStateType = typeof initialState
 
 export const todoListsReducer = (state = initialState, action: ActionUnionType): InitialTodoListStateType => {
