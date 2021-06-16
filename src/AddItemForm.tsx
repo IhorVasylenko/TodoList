@@ -4,16 +4,11 @@ import {AddBox} from "@material-ui/icons";
 
 export type AddItemFormPropsType = {
     addItem: (title: string) => void
-}
+};
 
-export function AddItemForm(props: AddItemFormPropsType) {
-    const [title, setTitle] = useState('')
-    const [error, setError] = useState<boolean>(false)
-
-    const onChangeItemHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-        setError(false)
-    }
+export const AddItemForm = React.memo ((props: AddItemFormPropsType) => {
+    const [title, setTitle] = useState('');
+    const [error, setError] = useState<boolean>(false);
 
     const onClickAddItemHandler = () => {
         if (title.trim()) {
@@ -21,14 +16,19 @@ export function AddItemForm(props: AddItemFormPropsType) {
         } else {
             setError(true)
         }
-        setTitle('')
-    }
+        setTitle('');
+    };
+
+    const onChangeItemHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value);
+        setError(false);
+    };
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            onClickAddItemHandler()
+            onClickAddItemHandler();
         }
-    }
+    };
 
     return (
         <div>
@@ -41,12 +41,10 @@ export function AddItemForm(props: AddItemFormPropsType) {
                 value={title}
                 onChange={onChangeItemHandler}
                 onKeyPress={onKeyPressHandler}
-                // onBlur={() => setError(false)}
-                // autoFocus={true}
             />
             <IconButton color={error ? "secondary" : "primary"} onClick={onClickAddItemHandler}>
                 <AddBox/>
             </IconButton>
         </div>
-    )
-}
+    );
+})
