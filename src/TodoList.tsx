@@ -7,21 +7,22 @@ import {Delete} from "@material-ui/icons";
 import {Task} from "./Task";
 
 export type TodoListPropsType = {
-    todoListId: string,
-    title: string,
-    tasks: Array<TasksType>,
-    filter: FilterValuesType,
-    addTask: (title: string, todoListId: string) => void,
-    removeTask: (taskId: string, todoListId: string) => void,
-    changeFilter: (value: FilterValuesType, todoListId: string) => void,
-    changeTaskStatus: (taskId: string, newIsDoneValue: boolean, todoListId: string) => void,
-    removeTodoList: (todoListId: string) => void,
-    changeTaskTitle: (taskId: string, title: string, todoListId: string) => void,
-    changeTodoListTitle: (title: string, todoListId: string) => void,
+    todoListId: string
+    title: string
+    tasks: Array<TasksType>
+    filter: FilterValuesType
+    addTask: (title: string, todoListId: string) => void
+    removeTask: (taskId: string, todoListId: string) => void
+    changeFilter: (value: FilterValuesType, todoListId: string) => void
+    changeTaskStatus: (taskId: string, newIsDoneValue: boolean, todoListId: string) => void
+    removeTodoList: (todoListId: string) => void
+    changeTaskTitle: (taskId: string, title: string, todoListId: string) => void
+    changeTodoListTitle: (title: string, todoListId: string) => void
 };
 
-export const TodoList = React.memo((
-    {
+export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
+
+    const {
         changeTaskTitle,
         changeTaskStatus,
         changeTodoListTitle,
@@ -33,7 +34,7 @@ export const TodoList = React.memo((
         tasks,
         addTask,
         filter,
-    }: TodoListPropsType) => {
+    } = props;
 
     const getTaskForTodoList = () => {
         switch (filter) {

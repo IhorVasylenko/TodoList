@@ -5,21 +5,23 @@ import {Delete} from "@material-ui/icons";
 import {TasksType} from "./App";
 
 export type TaskPropsType = {
-    todoListId: string,
-    changeTaskStatus: (taskId: string, newIsDoneValue: boolean, todoListId: string) => void,
-    changeTaskTitle: (taskId: string, title: string, todoListId: string) => void,
-    removeTask: (taskId: string, todoListId: string) => void,
-    task: TasksType,
+    todoListId: string
+    changeTaskStatus: (taskId: string, newIsDoneValue: boolean, todoListId: string) => void
+    changeTaskTitle: (taskId: string, title: string, todoListId: string) => void
+    removeTask: (taskId: string, todoListId: string) => void
+    task: TasksType
 };
 
-export const Task = React.memo((
-    {
+export const Task: React.FC<TaskPropsType> = React.memo((props) => {
+
+    const {
         changeTaskStatus,
         changeTaskTitle,
         removeTask,
         task,
         todoListId,
-    }: TaskPropsType) => {
+    } = props;
+
     const removeTaskFn = useCallback(
         () => removeTask(task.id, todoListId),
         [removeTask, task.id, todoListId]);

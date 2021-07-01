@@ -1,18 +1,14 @@
 import {TasksStateType, TasksType} from "../App";
 import {v1} from "uuid";
-import {AddTodoListAT, RemoveTodoListAT} from "./todoListsReducer";
+import {CommonActionTypeForApp, InferActionType} from "../state/store";
 
-export type RemoveTaskAT = ReturnType<typeof removeTaskAC>;
-export type AddTaskAT = ReturnType<typeof addTaskAC>;
-export type ChangeTaskStatusAT = ReturnType<typeof changeTaskStatusAC>;
-export type ChangeTaskTitleAT = ReturnType<typeof changeTaskTitleAC>;
-export type ActionUnionType = RemoveTaskAT | AddTaskAT | ChangeTaskStatusAT
-    | ChangeTaskTitleAT | AddTodoListAT | RemoveTodoListAT;
 
 let initialState = {} as TasksStateType;
-export type InitialTasksStateType = typeof initialState;
 
-export const tasksReducer = (state: InitialTasksStateType = initialState, action: ActionUnionType)
+export type InitialTasksStateType = typeof initialState;
+export type TaskActionType = InferActionType<typeof actionsForTasks>;
+
+export const tasksReducer = (state: InitialTasksStateType = initialState, action: CommonActionTypeForApp)
     : InitialTasksStateType=> {
     switch (action.type) {
         case "REMOVE_TASK":
@@ -54,20 +50,32 @@ export const tasksReducer = (state: InitialTasksStateType = initialState, action
         default:
             return state
     }
-}
+};
 
-export const removeTaskAC = (taskId: string, todoListId: string) => ({
-    type: "REMOVE_TASK" as const, taskId, todoListId,
-});
-export const addTaskAC = (title: string, todoListId: string) => ({
-    type: 'ADD_TASK' as const, title, todoListId,
-});
-export const changeTaskStatusAC = (taskId: string, newIsDoneValue: boolean, todoListId: string) => ({
-    type: 'CHANGE_TASK_STATUS' as const, taskId, newIsDoneValue, todoListId,
-});
-export const changeTaskTitleAC = (taskId: string, title: string, todoListId: string) => ({
-    type: 'CHANGE_TASK_TITLE' as const, taskId, title, todoListId,
-});
+export const actionsForTasks = {
+    removeTask: (taskId: string, todoListId: string) => ({
+        type: "REMOVE_TASK",
+        taskId,
+        todoListId,
+    } as const),
+    addTask: (title: string, todoListId: string) => ({
+        type: "ADD_TASK",
+        title,
+        todoListId,
+    } as const),
+    changeTaskStatus: (taskId: string, newIsDoneValue: boolean, todoListId: string) => ({
+        type: "CHANGE_TASK_STATUS",
+        taskId,
+        newIsDoneValue,
+        todoListId,
+    } as const),
+    changeTaskTitle: (taskId: string, title: string, todoListId: string) => ({
+        type: "CHANGE_TASK_TITLE",
+        taskId,
+        title,
+        todoListId,
+    } as const),
+};
 
 
 
