@@ -10,19 +10,34 @@ const instance = axios.create({
 });
 
 
-type TodoListType = {
+export type TodoListType = {
     id: string
     addedDate: string
     order: number
     title: string
 };
 
-type TaskType = {
+export enum TaskStatuses {
+    New,
+    InProgress,
+    Completed,
+    Draft,
+}
+
+export enum TodoTaskPriority {
+    Low,
+    Middle,
+    Hi,
+    Urgently,
+    Later,
+}
+
+export type TaskType = {
     description: string
     title: string
     completed: boolean
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TodoTaskPriority
     startDate: string
     deadline: string
     id: string

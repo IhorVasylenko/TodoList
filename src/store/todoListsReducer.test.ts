@@ -1,17 +1,16 @@
-import {actionsForTodoLists, todoListsReducer} from './todoListsReducer';
+import {actionsForTodoLists, FilterValuesType, TodoListDomainType, todoListsReducer} from './todoListsReducer';
 import {v1} from 'uuid';
-import {FilterValuesType, TodoListType} from '../App';
 
 let todoListId1: string
 let todoListId2: string
-let startState: Array<TodoListType>
+let startState: Array<TodoListDomainType>
 
 beforeEach( () => {
     todoListId1 = v1();
     todoListId2 = v1();
     startState = [
-        {id: todoListId1, title: "What to learn", filter: "all"},
-        {id: todoListId2, title: "What to buy", filter: "all"}
+        {id: todoListId1, title: "What to learn", filter: "all", order: 0, addedDate: '',},
+        {id: todoListId2, title: "What to buy", filter: "all", order: 0, addedDate: '',}
     ]
 })
 

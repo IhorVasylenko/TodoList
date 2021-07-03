@@ -1,7 +1,11 @@
-import {TasksStateType, TasksType} from "../App";
 import {v1} from "uuid";
 import {CommonActionTypeForApp, InferActionType} from "../state/store";
+import {TaskStatuses, TaskType, TodoTaskPriority} from "../api/todoListAPI";
 
+
+export type TasksStateType = {
+    [key: string] : Array<TaskType>,
+};
 
 let initialState = {} as TasksStateType;
 
@@ -17,17 +21,25 @@ export const tasksReducer = (state: InitialTasksStateType = initialState, action
                 [action.todoListId]: state[action.todoListId].filter(t => t.id !== action.taskId)
             }
         case 'ADD_TASK':
-            const newTask: TasksType = {
+            const newTask: TaskType = {
                 id: v1(),
                 title: action.title,
-                isDone: false
+                status: TaskStatuses.New,
+                todoListId: action.todoListId,
+                order: 0,
+                completed: false,
+                addedDate: '',
+                deadline: '',
+                startDate: '',
+                description: '',
+                priority: TodoTaskPriority.Low,
             }
             return({...state, [action.todoListId]: [newTask, ...state[action.todoListId]] })
         case 'CHANGE_TASK_STATUS':
             return ({
                 ...state,
                 [action.todoListId]: state[action.todoListId].map(t => t.id === action.taskId
-                    ? {...t, isDone: action.newIsDoneValue}
+                    ? {...t, status: action.status}
                     : t)
             })
         case 'CHANGE_TASK_TITLE':
@@ -63,10 +75,10 @@ export const actionsForTasks = {
         title,
         todoListId,
     } as const),
-    changeTaskStatus: (taskId: string, newIsDoneValue: boolean, todoListId: string) => ({
+    changeTaskStatus: (taskId: string, status: TaskStatuses, todoListId: string) => ({
         type: "CHANGE_TASK_STATUS",
         taskId,
-        newIsDoneValue,
+        status,
         todoListId,
     } as const),
     changeTaskTitle: (taskId: string, title: string, todoListId: string) => ({

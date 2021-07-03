@@ -2,14 +2,14 @@ import React, {ChangeEvent, useCallback} from "react";
 import {Checkbox, IconButton} from "@material-ui/core";
 import {EditableSpan} from "./EditableSpan";
 import {Delete} from "@material-ui/icons";
-import {TasksType} from "./App";
+import {TaskStatuses, TaskType} from "./api/todoListAPI";
 
 export type TaskPropsType = {
     todoListId: string
-    changeTaskStatus: (taskId: string, newIsDoneValue: boolean, todoListId: string) => void
+    changeTaskStatus: (taskId: string, status: TaskStatuses, todoListId: string) => void
     changeTaskTitle: (taskId: string, title: string, todoListId: string) => void
     removeTask: (taskId: string, todoListId: string) => void
-    task: TasksType
+    task: TaskType
 };
 
 export const Task: React.FC<TaskPropsType> = React.memo((props) => {
@@ -26,7 +26,7 @@ export const Task: React.FC<TaskPropsType> = React.memo((props) => {
         () => removeTask(task.id, todoListId),
         [removeTask, task.id, todoListId]);
     const onChengStatusHandler = (e: ChangeEvent<HTMLInputElement>) =>
-        changeTaskStatus(task.id, e.currentTarget.checked, todoListId);
+        changeTaskStatus(task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New, todoListId);
     const changeTaskTitleFn = useCallback(
         (title: string) => changeTaskTitle(task.id, title, todoListId),
         [changeTaskTitle, task.id, todoListId]);
@@ -35,10 +35,10 @@ export const Task: React.FC<TaskPropsType> = React.memo((props) => {
         <div key={task.id}>
             <Checkbox
                 color={"default"}
-                checked={task.isDone}
+                checked={task.status === TaskStatuses.Completed}
                 onChange={onChengStatusHandler}
             />
-            <span className={task.isDone ? 'is-done' : ''}>
+            <span className={task.status === TaskStatuses.Completed ? 'is-done' : ''}>
                     <EditableSpan title={task.title} changeTitle={changeTaskTitleFn}/>
                     </span>
             <IconButton onClick={removeTaskFn} style={{opacity: ".7"}}>

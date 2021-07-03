@@ -1,20 +1,21 @@
 import React, {useCallback} from "react";
-import {FilterValuesType, TasksType} from "./App";
 import {EditableSpan} from "./EditableSpan";
 import {AddItemForm} from "./AddItemForm";
 import {Button, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 import {Task} from "./Task";
+import {TaskStatuses, TaskType} from "./api/todoListAPI";
+import {FilterValuesType} from "./store/todoListsReducer";
 
 export type TodoListPropsType = {
     todoListId: string
     title: string
-    tasks: Array<TasksType>
+    tasks: Array<TaskType>
     filter: FilterValuesType
     addTask: (title: string, todoListId: string) => void
     removeTask: (taskId: string, todoListId: string) => void
     changeFilter: (value: FilterValuesType, todoListId: string) => void
-    changeTaskStatus: (taskId: string, newIsDoneValue: boolean, todoListId: string) => void
+    changeTaskStatus: (taskId: string, status: TaskStatuses, todoListId: string) => void
     removeTodoList: (todoListId: string) => void
     changeTaskTitle: (taskId: string, title: string, todoListId: string) => void
     changeTodoListTitle: (title: string, todoListId: string) => void
@@ -39,9 +40,9 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
     const getTaskForTodoList = () => {
         switch (filter) {
             case "active":
-                return tasks.filter(task => !task.isDone);
+                return tasks.filter(task => task.status === TaskStatuses.New);
             case "completed":
-                return tasks.filter(task => task.isDone);
+                return tasks.filter(task => task.status === TaskStatuses.Completed);
             default:
                 return tasks;
         }
@@ -49,10 +50,10 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
 
     let tasksForTodoList = getTaskForTodoList();
     if (filter === 'active') {
-        tasksForTodoList = tasks.filter(t => !t.isDone)
+        tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.New)
     }
     if (filter === 'completed') {
-        tasksForTodoList = tasks.filter(t => t.isDone)
+        tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
     const tasksList = tasksForTodoList.map(task => <Task
