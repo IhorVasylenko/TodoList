@@ -1,6 +1,6 @@
 import {actionsForTasks, tasksReducer, TasksStateType} from "./tasksReducer";
 import {actionsForTodoLists, TodoListDomainType} from "./todoListsReducer";
-import {TaskStatuses, TaskPriorities} from "../api/todoListAPI";
+import {TaskStatuses, TaskPriorities} from "../../api/todoListAPI";
 
 let startState: TasksStateType
 

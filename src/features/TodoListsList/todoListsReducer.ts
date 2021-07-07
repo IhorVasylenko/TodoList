@@ -1,18 +1,10 @@
-import {CommonActionTypeForApp, InferActionType} from "../state/store";
-import {todoListAPI, TodoListType} from "../api/todoListAPI";
+import {AppRootStateType, CommonActionTypeForApp, InferActionType} from "../../app/store";
+import {todoListAPI, TodoListType} from "../../api/todoListAPI";
 import {Dispatch} from "redux";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
 
-
-export type FilterValuesType = 'all' | 'active' | 'completed';
-export type TodoListDomainType = TodoListType & {
-    filter: FilterValuesType
-};
 
 let initialState = [] as Array<TodoListDomainType>;
-
-export type InitialTodoListStateType = typeof initialState;
-export type TodoListActionType = InferActionType<typeof actionsForTodoLists>;
-
 export const todoListsReducer = (state: InitialTodoListStateType = initialState, action: CommonActionTypeForApp)
     : InitialTodoListStateType => {
     switch (action.type) {
@@ -31,6 +23,8 @@ export const todoListsReducer = (state: InitialTodoListStateType = initialState,
     }
 };
 
+
+// actions
 export const actionsForTodoLists = {
     removeTodoList: (todoListId: string) => ({
         type: "REMOVE_TODOLIST",
@@ -56,27 +50,40 @@ export const actionsForTodoLists = {
     } as const),
 };
 
-export const fetchTodoLists = () => (dispatch: Dispatch) => {
+
+// thanks
+export const fetchTodoLists = (): ThunkType => (dispatch: ThunkDispatchType) => {
     todoListAPI.getTodoLists()
         .then(res => {
             dispatch(actionsForTodoLists.setTodoLists(res.data))
         });
 };
-export const removeTodoList = (todoListId: string) => (dispatch: Dispatch) => {
+export const removeTodoList = (todoListId: string): ThunkType => (dispatch: ThunkDispatchType) => {
     todoListAPI.removeTodolist(todoListId)
         .then(() => {
             dispatch(actionsForTodoLists.removeTodoList(todoListId))
         });
 };
-export const createTodoList = (title: string) => (dispatch: Dispatch) => {
+export const createTodoList = (title: string): ThunkType => (dispatch: ThunkDispatchType) => {
     todoListAPI.createTodolist(title)
         .then((res) => {
             dispatch(actionsForTodoLists.createTodoList(res.data.data.item))
         });
 };
-export const updateTodoListTitle = (todoListId: string, title: string) => (dispatch: Dispatch) => {
+export const updateTodoListTitle = (todoListId: string, title: string): ThunkType => (dispatch: ThunkDispatchType) => {
     todoListAPI.updateTodoListTitle(todoListId, title)
         .then(() => {
             dispatch(actionsForTodoLists.updateTodoListTitle(todoListId, title))
         });
 };
+
+
+// types
+export type InitialTodoListStateType = typeof initialState;
+export type TodoListActionType = InferActionType<typeof actionsForTodoLists>;
+export type FilterValuesType = 'all' | 'active' | 'completed';
+export type TodoListDomainType = TodoListType & {
+    filter: FilterValuesType
+};
+export type ThunkType = ThunkAction<void, AppRootStateType, unknown, CommonActionTypeForApp>;
+export type ThunkDispatchType = ThunkDispatch<AppRootStateType, unknown, CommonActionTypeForApp>
