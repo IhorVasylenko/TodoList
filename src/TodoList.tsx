@@ -16,11 +16,11 @@ export type TodoListPropsType = {
     filter: FilterValuesType
     addTask: (title: string, todoListId: string) => void
     removeTask: (taskId: string, todoListId: string) => void
-    changeFilter: (value: FilterValuesType, todoListId: string) => void
+    changeFilter: (todoListId: string, filter: FilterValuesType) => void
     changeTaskStatus: (taskId: string, status: TaskStatuses, todoListId: string) => void
     removeTodoList: (todoListId: string) => void
     changeTaskTitle: (taskId: string, title: string, todoListId: string) => void
-    changeTodoListTitle: (title: string, todoListId: string) => void
+    changeTodoListTitle: (todoListId: string, title: string) => void
 };
 
 export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
@@ -79,16 +79,16 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
     const addTaskFn = useCallback((title: string) => addTask(title, todoListId),
         [addTask, todoListId]);
     const changeTodoListTitleFn = useCallback(
-        (title: string) => changeTodoListTitle(title, todoListId),
+        (title: string) => changeTodoListTitle(todoListId, title),
         [changeTodoListTitle, todoListId]);
     const onClickAllChangeFilterHandler = useCallback(
-        () => changeFilter('all', todoListId),
+        () => changeFilter(todoListId, 'all'),
         [changeFilter, todoListId]);
     const onClickActiveChangeFilterHandler = useCallback(
-        () => changeFilter('active', todoListId),
+        () => changeFilter(todoListId, 'active'),
         [changeFilter, todoListId]);
     const onClickCompletedChangeFilterHandler = useCallback(
-        () => changeFilter('completed', todoListId),
+        () => changeFilter(todoListId, 'completed'),
         [changeFilter, todoListId]);
 
 

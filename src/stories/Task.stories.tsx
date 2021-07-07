@@ -2,7 +2,7 @@ import React from 'react';
 import {Meta, Story} from '@storybook/react';
 import {action} from "@storybook/addon-actions";
 import {Task, TaskPropsType} from "../Task";
-import {TaskStatuses, TodoTaskPriority} from "../api/todoListAPI";
+import {TaskStatuses, TaskPriorities} from "../api/todoListAPI";
 
 
 export default {
@@ -28,13 +28,12 @@ TaskIsDoneExample.args = {
     task: {id: '1',
         status: TaskStatuses.Completed,
         title: 'JS',
-        priority: TodoTaskPriority.Later,
+        priority: TaskPriorities.Later,
         description: '',
         startDate: '',
         deadline: '',
         addedDate: '',
         order: 0,
-        completed: true,
         todoListId: 'todoListId1',
     },
     todoListId: 'todoListId1',
@@ -46,13 +45,12 @@ TaskIsNotDoneExample.args = {
     task: {id: '2',
         status: TaskStatuses.New,
         title: 'CSS',
-        priority: TodoTaskPriority.Later,
+        priority: TaskPriorities.Later,
         description: '',
         startDate: '',
         deadline: '',
         addedDate: '',
         order: 0,
-        completed: true,
         todoListId: 'todoListId1',
     },
     todoListId: 'todoListId1',

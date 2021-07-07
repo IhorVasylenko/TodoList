@@ -4,53 +4,48 @@ import {TodoList} from "./TodoList";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
-import {
-    actionsForTodoLists,
-    fetchTodoLists,
-    FilterValuesType,
-    InitialTodoListStateType
-} from "./store/todoListsReducer";
-import {actionsForTasks, InitialTasksStateType} from "./store/tasksReducer";
+import {actionsForTodoLists, createTodoList, fetchTodoLists, FilterValuesType,removeTodoList,
+    TodoListDomainType, updateTodoListTitle} from "./store/todoListsReducer";
+import {createTask, removeTask, TasksStateType, updateTask} from "./store/tasksReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {Dispatch} from "redux";
 import {TaskStatuses} from "./api/todoListAPI";
 
 
-function App() {
-// BL:
-    const tasks = useSelector<AppRootStateType, InitialTasksStateType>(state => state.tasks);
-    const todoLists = useSelector<AppRootStateType, InitialTodoListStateType>(state => state.todoLists);
+export function App() {
+    const todoLists = useSelector<AppRootStateType, Array<TodoListDomainType>>(state => state.todoLists);
+    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
     const dispatch: Dispatch<any> = useDispatch();
 
     useEffect(() => {
         dispatch(fetchTodoLists())
     }, []);
 
-    const removeTodoList = useCallback((todoListId: string) => {
-        dispatch(actionsForTodoLists.removeTodoList(todoListId))
+    const deleteTodoList = useCallback((todoListId: string) => {
+        dispatch(removeTodoList(todoListId))
     }, [dispatch]);
     const addTodoList = useCallback((title: string) => {
-        dispatch(actionsForTodoLists.addTodoList(title))
+        dispatch(createTodoList(title))
     }, [dispatch]);
-    const changeTodoListTitle = useCallback((title: string, todoListId: string) => {
-        dispatch(actionsForTodoLists.changeTodoListTitle(title, todoListId))
+    const changeTodoListTitle = useCallback((todoListId: string, title: string) => {
+        dispatch(updateTodoListTitle(todoListId, title))
     }, [dispatch]);
-    const changeTodoListFilter = useCallback((filter: FilterValuesType, todoListId: string) => {
-        dispatch(actionsForTodoLists.changeTodoListFilter(filter, todoListId))
+    const changeTodoListFilter = useCallback((todoListId: string, filter: FilterValuesType) => {
+        dispatch(actionsForTodoLists.updateTodoListFilter(todoListId, filter))
     }, [dispatch]);
 
-    const removeTask = useCallback((taskId: string, todoListId: string) => {
-        dispatch(actionsForTasks.removeTask(taskId, todoListId))
+    const deleteTask = useCallback((taskId: string, todoListId: string) => {
+        dispatch(removeTask(taskId, todoListId))
     }, [dispatch]);
     const addTask = useCallback((title: string, todoListId: string) => {
-        dispatch(actionsForTasks.addTask(title, todoListId))
+        dispatch(createTask(todoListId, title))
     }, [dispatch]);
     const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses, todoListId: string) => {
-        dispatch(actionsForTasks.changeTaskStatus(taskId, status, todoListId))
+        dispatch(updateTask(todoListId, taskId, {status}))
     }, [dispatch]);
     const changeTaskTitle = useCallback((taskId: string, title: string, todoListId: string) => {
-        dispatch(actionsForTasks.changeTaskTitle(taskId, title, todoListId))
+        dispatch(updateTask(todoListId, taskId, {title}))
     }, [dispatch]);
 
 // UI:
@@ -63,12 +58,12 @@ function App() {
                             todoListId={tl.id}
                             title={tl.title}
                             filter={tl.filter}
-                            removeTask={removeTask}
+                            removeTask={deleteTask}
                             addTask={addTask}
                             changeFilter={changeTodoListFilter}
                             changeTaskStatus={changeTaskStatus}
                             tasks={tasksForTodoList}
-                            removeTodoList={removeTodoList}
+                            removeTodoList={deleteTodoList}
                             changeTaskTitle={changeTaskTitle}
                             changeTodoListTitle={changeTodoListTitle}
                         />
@@ -104,5 +99,3 @@ function App() {
         </div>
     );
 }
-
-export default App;

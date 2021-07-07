@@ -63,7 +63,7 @@ export const DeleteTodolist = () => {
     }, [])*/
     const [todoListId, setTodoListId] = useState<string>('');
     const deleteTodoListHandler = () => {
-        todoListAPI.deleteTodolist(todoListId)
+        todoListAPI.removeTodolist(todoListId)
             .then((res) => {
                 setState(res.data);
             })
@@ -88,18 +88,10 @@ export const DeleteTodolist = () => {
 
 export const UpdateTodolistTitle = () => {
     const [state, setState] = useState<any>(null)
-    /*useEffect(() => {
-        let todoListId: string = "b6d69c1e-5ec7-4021-b364-024fe9aa6a25";
-        let title: string = "update todoList title";
-        todoListAPI.updateTodolistTitle(todoListId, title)
-            .then((res) => {
-                setState(res.data);
-            })
-    }, []);*/
     const [todoListId, setTodoListId] = useState<string>('');
     const [todoListTitle, setTodoListTitle] = useState<string>('');
     const updateTodoListTitleHandler = () => {
-        todoListAPI. updateTodolistTitle(todoListId, todoListTitle.toUpperCase())
+        todoListAPI. updateTodoListTitle(todoListId, todoListTitle.toUpperCase())
             .then((res) => {
                 setState(res.data);
             })
@@ -128,13 +120,6 @@ export const UpdateTodolistTitle = () => {
 
 export const GetTasks = () => {
     const [state, setState] = useState<any>(null);
-    /*useEffect(() => {
-        let todoListId: string = "b6d69c1e-5ec7-4021-b364-024fe9aa6a25";
-        todoListAPI.getTasks(todoListId)
-            .then((res) => {
-                setState(res.data);
-            })
-    }, []);*/
     const [todoListId, setTodoListId] = useState<string>('');
 
     const getTasksHandler = () => {
@@ -163,14 +148,6 @@ export const GetTasks = () => {
 
 export const CreateTask = () => {
     const [state, setState] = useState<any>(null);
-    /*useEffect(() => {
-        let todoListId: string = "b6d69c1e-5ec7-4021-b364-024fe9aa6a25";
-        let title: string = "new task";
-        todoListAPI.createTask(todoListId, title)
-            .then((res) => {
-                setState(res.data);
-            })
-    }, []);*/
     const [taskTitle, setTasTitle] = useState<string>('');
     const [todoListId, setTodoListId] = useState<string>('');
 
@@ -204,19 +181,11 @@ export const CreateTask = () => {
 
 export const DeleteTask = () => {
     const [state, setState] = useState<any>(null);
-    /*useEffect(() => {
-        let todoListId: string = "b6d69c1e-5ec7-4021-b364-024fe9aa6a25";
-        let taskId: string = "6da07940-b2c3-4b16-be0e-240a0eb89f53";
-        todoListAPI.deleteTask(todoListId, taskId)
-            .then((res) => {
-                setState(res.data);
-            })
-    }, [])*/
     const [taskId, setTaskId] = useState<string>('');
     const [todoListId, setTodoListId] = useState<string>('');
 
     const deleteTaskHandler = () => {
-        todoListAPI.deleteTask(todoListId, taskId)
+        todoListAPI.removeTask(todoListId, taskId)
             .then((res) => {
                 setState(res.data);
             })
@@ -244,27 +213,14 @@ export const DeleteTask = () => {
 
 export const UpdateTaskTitle = () => {
     const [state, setState] = useState<any>(null);
-    /*useEffect(() => {
-        let todoListId: string = "b6d69c1e-5ec7-4021-b364-024fe9aa6a25";
-        let taskId: string = "b6d69c1e-5ec7-4021-b364-024fe9aa6a25";
-        let updateTask: UpdateTaskType = {
-            title: "update task title",
-            description: "",
-            completed: false,
-            status: 0,
-            priority: 0,
-            startDate: "",
-            deadline: "",
-        };*/
     const [taskTitle, setTaskTitle] = useState<string>('');
     const [taskId, setTaskId] = useState<string>('');
     const [todoListId, setTodoListId] = useState<string>('');
 
     const updateTaskTitleHandler = () => {
-        todoListAPI.updateTaskTitle(todoListId, taskId, {
+        todoListAPI.updateTask(todoListId, taskId, {
             title: taskTitle.toUpperCase(),
             description: "",
-            completed: false,
             status: 0,
             priority: 0,
             startDate: "",
