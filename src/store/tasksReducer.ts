@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 import {CommonActionTypeForApp, InferActionType} from "../state/store";
-import {TaskStatuses, TaskType, TodoTaskPriority} from "../api/todoListAPI";
+import {TaskStatuses, TaskType, todoListAPI, TodoTaskPriority} from "../api/todoListAPI";
+import {Dispatch} from "redux";
 
 
 export type TasksStateType = {
@@ -59,6 +60,15 @@ export const tasksReducer = (state: InitialTasksStateType = initialState, action
             delete stateCopy[action.todoListId]
             return stateCopy
         }
+        case "SET-TODO-LISTS":{
+            const copyState = {...state}
+            action.todoLists.forEach((tl) => {
+                copyState[tl.id] = []
+            });
+            return copyState;
+        }
+        case "SET-TASKS":
+            return {...state, [action.todoListId]: action.tasks};
         default:
             return state
     }
@@ -87,6 +97,18 @@ export const actionsForTasks = {
         title,
         todoListId,
     } as const),
+    setTasks: (todoListId: string, tasks: TaskType[]) => ({
+        type: "SET-TASKS",
+        todoListId,
+        tasks,
+    } as const),
+};
+
+export const fetchTask = (todolistId: string) => (dispatch: Dispatch) => {
+    todoListAPI.getTasks(todolistId)
+        .then(res => {
+            dispatch(actionsForTasks.setTasks(todolistId, res.data.items))
+        });
 };
 
 

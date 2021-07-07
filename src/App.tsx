@@ -1,10 +1,15 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {TodoList} from "./TodoList";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
-import {actionsForTodoLists, FilterValuesType, InitialTodoListStateType} from "./store/todoListsReducer";
+import {
+    actionsForTodoLists,
+    fetchTodoLists,
+    FilterValuesType,
+    InitialTodoListStateType
+} from "./store/todoListsReducer";
 import {actionsForTasks, InitialTasksStateType} from "./store/tasksReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
@@ -16,8 +21,11 @@ function App() {
 // BL:
     const tasks = useSelector<AppRootStateType, InitialTasksStateType>(state => state.tasks);
     const todoLists = useSelector<AppRootStateType, InitialTodoListStateType>(state => state.todoLists);
-
     const dispatch: Dispatch<any> = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchTodoLists())
+    }, []);
 
     const removeTodoList = useCallback((todoListId: string) => {
         dispatch(actionsForTodoLists.removeTodoList(todoListId))

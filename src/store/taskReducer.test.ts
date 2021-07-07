@@ -128,3 +128,14 @@ test('property with todolistId should be deleted', () => {
     expect(endState["todolistId2"]).toBeUndefined();
 });
 
+test('tasks should be added for todoList', () => {
+    const action = actionsForTasks.setTasks("todolistId1", startState["todolistId1"]);
+    const endState = tasksReducer({
+        "todolistId2": [],
+        "todolistId1": [],
+    }, action);
+
+    expect(endState["todolistId1"].length).toBe(3);
+    expect(endState["todolistId2"].length).toBe(0);
+});
+
