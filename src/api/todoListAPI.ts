@@ -10,43 +10,37 @@ const instance = axios.create({
     },
 });
 
+
 export const todoListAPI = {
     getTodoLists() {
-        return instance.get<TodoListType[]>('todo-lists')
+        return instance.get<TodoListType[]>('todo-lists');
     },
     createTodolist(title: string) {
-        return instance.post<ResponseType<{item: TodoListType}>>('todo-lists', { title })
+        return instance.post<ResponseType<{item: TodoListType}>>('todo-lists', { title });
     },
     removeTodolist(todoListId: string) {
-        return instance.delete<ResponseType>(`todo-lists/${todoListId}`)
+        return instance.delete<ResponseType>(`todo-lists/${todoListId}`);
     },
     updateTodoListTitle(todoListId: string, title: string) {
-        return instance.put<ResponseType<{item: TodoListType}>>(`todo-lists/${todoListId}`, { title })
+        return instance.put<ResponseType<{item: TodoListType}>>(`todo-lists/${todoListId}`, { title });
     },
     getTasks(todoListId: string) {
-        return instance.get<GetTasksResponse>(`todo-lists/${todoListId}/tasks`)
+        return instance.get<GetTasksResponse>(`todo-lists/${todoListId}/tasks`);
     },
     createTask(todoListId: string, title: string) {
-        return instance.post<ResponseType<{item: TaskType}>>(`todo-lists/${todoListId}/tasks`, { title })
+        return instance.post<ResponseType<{item: TaskType}>>(`todo-lists/${todoListId}/tasks`, { title });
     },
     removeTask(todoListId: string, taskId: string) {
-        return instance.delete<ResponseType>(`todo-lists/${todoListId}/tasks/${taskId}`)
+        return instance.delete<ResponseType>(`todo-lists/${todoListId}/tasks/${taskId}`);
     },
     updateTask(todoListId: string, taskId: string, updateTask: UpdateTaskModelType) {
-        return instance.put<ResponseType<TaskType>>(`todo-lists/${todoListId}/tasks/${taskId}`, updateTask)
+        return instance.put<ResponseType<TaskType>>(`todo-lists/${todoListId}/tasks/${taskId}`, updateTask);
     },
 };
 /*return instance.put<ResponseType<{item: TaskType}>>(`todo-lists/${todoListId}/tasks/${taskId}`, { updateTask })*/
 
 
 // types
-export type TodoListType = {
-    id: string
-    addedDate: string
-    order: number
-    title: string
-};
-
 export enum TaskStatuses {
     New,
     InProgress,
@@ -61,6 +55,13 @@ export enum TaskPriorities {
     Urgently,
     Later,
 }
+
+export type TodoListType = {
+    id: string
+    addedDate: string
+    order: number
+    title: string
+};
 
 export type TaskType = {
     description: string
@@ -84,7 +85,7 @@ export type UpdateTaskModelType = {
     deadline: string
 };
 
-type ResponseType<D = {}> = {
+export type ResponseType<D = {}> = {
     data: D
     resultCode: number
     messages: string[]

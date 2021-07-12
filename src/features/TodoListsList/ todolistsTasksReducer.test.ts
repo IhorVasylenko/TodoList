@@ -10,6 +10,7 @@ test('ids should be equals', () => {
         order: 1,
         filter: "all",
         addedDate: "",
+        entityStatus: "idle",
     };
 
     const action = actionsForTodoLists.createTodoList(newTodoList);

@@ -91,7 +91,7 @@ export const UpdateTodolistTitle = () => {
     const [todoListId, setTodoListId] = useState<string>('');
     const [todoListTitle, setTodoListTitle] = useState<string>('');
     const updateTodoListTitleHandler = () => {
-        todoListAPI. updateTodoListTitle(todoListId, todoListTitle.toUpperCase())
+        todoListAPI.updateTodoListTitle(todoListId, todoListTitle.toUpperCase())
             .then((res) => {
                 setState(res.data);
             })

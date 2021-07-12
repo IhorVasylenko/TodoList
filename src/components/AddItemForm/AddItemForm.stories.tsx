@@ -18,5 +18,12 @@ const Template: Story<AddItemFormPropsType> = (args) => <AddItemForm {...args} /
 
 export const AddItemFormExample = Template.bind({});
 AddItemFormExample.args = {
-    addItem: action('Button clicked inside component')
+    addItem: action('Button clicked inside component'),
+    disabled: false
+};
+
+export const AddItemFormExampleDisabled = Template.bind({});
+AddItemFormExampleDisabled.args = {
+    addItem: action('Button can not clicked'),
+    disabled: true
 };

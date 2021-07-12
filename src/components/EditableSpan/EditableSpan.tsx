@@ -1,33 +1,45 @@
 import React, {ChangeEvent, useState} from "react";
 import {TextField} from "@material-ui/core";
 
-export type EditableSpanPropsType = {
-    title: string,
-    changeTitle: (title: string) => void,
-};
 
-export const EditableSpan = (props: EditableSpanPropsType) => {
+export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
+
+    const {
+        title,
+        disabled,
+        changeTitle,
+    } = props;
+
     const [editMode, setEditMode] = useState<boolean>(false);
-    const [title, setTitle] = useState(props.title);
+    const [displayedTitle, setDisplayedTitle] = useState(title);
 
     const onEditMode = () => setEditMode(true);
     const offEditMode = () => {
         setEditMode(false);
-        props.changeTitle(title);
+        changeTitle(displayedTitle);
     };
 
-    const onChangeItemHandler = (e: ChangeEvent<HTMLInputElement>) =>  setTitle(e.currentTarget.value);
+    const onChangeItemHandler = (e: ChangeEvent<HTMLInputElement>) =>  setDisplayedTitle(e.currentTarget.value);
 
     return (
         editMode ?
             <TextField
                 variant={"standard"}
                 color={"primary"}
-                value={title}
+                value={displayedTitle}
                 onChange={onChangeItemHandler}
                 autoFocus
                 onBlur={offEditMode}
+                disabled={disabled}
             /> :
-            <span onDoubleClick={onEditMode}>{props.title}</span>
+            <span onDoubleClick={onEditMode}>{title}</span>
     );
-}
+};
+
+
+// types
+export type EditableSpanPropsType = {
+    title: string
+    changeTitle: (title: string) => void
+    disabled: boolean
+};
