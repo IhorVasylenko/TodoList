@@ -18,7 +18,7 @@ import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 export const App: React.FC<AppPropsType>  = (props) => {
     const {
         demo = false,
-    } = props
+    } = props;
 
     const appState = useSelector<AppRootStateType, AppInitialStateType>(state => state.app)
 
@@ -52,12 +52,12 @@ export const App: React.FC<AppPropsType>  = (props) => {
             <ErrorSnackbar />
         </div>
     );
-}
+};
 
 
 // types
 type AppPropsType = {
     demo?: boolean
-}
+};
 
 

@@ -37,7 +37,6 @@ export const todoListAPI = {
         return instance.put<ResponseType<TaskType>>(`todo-lists/${todoListId}/tasks/${taskId}`, updateTask);
     },
 };
-/*return instance.put<ResponseType<{item: TaskType}>>(`todo-lists/${todoListId}/tasks/${taskId}`, { updateTask })*/
 
 
 // types

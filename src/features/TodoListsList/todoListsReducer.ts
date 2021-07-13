@@ -129,8 +129,8 @@ export type InitialTodoListStateType = typeof initialState;
 export type TodoListActionType = InferActionType<typeof actionsForTodoLists>;
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodoListDomainType = TodoListType & {
-    filter: FilterValuesType,
-    entityStatus: RequestStatusType,
+    filter: FilterValuesType
+    entityStatus: RequestStatusType
 };
 export type ThunkType = ThunkAction<void, AppRootStateType, unknown, CommonActionTypeForApp>;
 export type ThunkDispatchType = ThunkDispatch<AppRootStateType, unknown, CommonActionTypeForApp>

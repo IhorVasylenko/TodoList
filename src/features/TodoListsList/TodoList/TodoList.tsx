@@ -8,6 +8,7 @@ import {TaskStatuses} from "../../../api/todoListAPI";
 import {FilterValuesType, TodoListDomainType} from "../todoListsReducer";
 import {useDispatch} from "react-redux";
 import {fetchTask, TaskDomainType} from "../tasksReducer";
+import {Dispatch} from "redux";
 
 
 export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
@@ -32,7 +33,7 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
         entityStatus,
     } = todoList;
 
-    const dispatch = useDispatch()
+    const dispatch: Dispatch<any> = useDispatch()
 
     useEffect(() => {
         if (demo) {
@@ -61,13 +62,13 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
         tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.Completed);
     }
 
-    const tasksList = tasksForTodoList.map(task => <Task
+    const tasksList = tasksForTodoList.map((t: TaskDomainType) => <Task
         changeTaskStatus={changeTaskStatus}
         changeTaskTitle={changeTaskTitle}
         removeTask={removeTask}
         todoListId={id}
-        task={task}
-        key={task.id}
+        task={t}
+        key={t.id}
     />);
 
     const onClickRemoveTodoListHandler = useCallback(
@@ -127,7 +128,7 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
 // types
 export type TodoListPropsType = {
     todoList: TodoListDomainType
-    tasks: Array<TaskDomainType>
+    tasks: TaskDomainType[]
     addTask: (title: string, todoListId: string) => void
     removeTask: (taskId: string, todoListId: string) => void
     changeFilter: (todoListId: string, filter: FilterValuesType) => void

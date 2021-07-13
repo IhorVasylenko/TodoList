@@ -4,6 +4,7 @@ import MuiAlert, {AlertProps} from '@material-ui/lab/Alert'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/store";
 import {actionsForApp} from "../../app/appReducer";
+import {Dispatch} from "redux";
 
 
 function Alert(props: AlertProps) {
@@ -16,7 +17,7 @@ function Alert(props: AlertProps) {
 export function ErrorSnackbar() {
 
     const error = useSelector<AppRootStateType, string | null>(state => state.app.error);
-    const dispatch = useDispatch();
+    const dispatch: Dispatch<any> = useDispatch();
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
@@ -24,6 +25,7 @@ export function ErrorSnackbar() {
         }
         dispatch(actionsForApp.setAppError(null));
     }
+
     const isOpen = error !== null;
 
     return (

@@ -1,11 +1,5 @@
 import {AppRootStateType, CommonActionTypeForApp, InferActionType} from "../../app/store";
-import {
-    TaskStatuses,
-    TaskType,
-    todoListAPI,
-    TaskPriorities,
-    UpdateTaskModelType,
-} from "../../api/todoListAPI";
+import {TaskStatuses, TaskType, todoListAPI, TaskPriorities, UpdateTaskModelType} from "../../api/todoListAPI";
 import {actionsForTodoLists, ThunkDispatchType, ThunkType} from "./todoListsReducer";
 import {actionsForApp, RequestStatusType} from "../../app/appReducer";
 import {AxiosError} from "axios";
@@ -26,10 +20,11 @@ export const tasksReducer = (state: InitialTasksStateType = initialState, action
         case "TODO/TASK/UPDATE-TASK":
             return {
                 ...state,
-                [action.todoListId]: state[action.todoListId].map(t => t.id === action.taskId ? {...t, ...action.model} : t)
+                [action.todoListId]: state[action.todoListId]
+                    .map(t => t.id === action.taskId ? {...t, ...action.model} : t)
             };
         case "TODO/TODOLIST/CREATE-TODOLIST":
-            return {...state, [action.todoList.id]: []}
+            return {...state, [action.todoList.id]: []};
         case "TODO/TODOLIST/REMOVE-TODOLIST":
             let stateCopy = {...state};
             delete stateCopy[action.todoListId];

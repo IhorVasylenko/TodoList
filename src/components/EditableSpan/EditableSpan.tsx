@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from "react";
 import {TextField} from "@material-ui/core";
 
 
-export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
+export const EditableSpan: React.FC<EditableSpanPropsType> = React.memo((props) => {
 
     const {
         title,
@@ -22,19 +22,19 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
     const onChangeItemHandler = (e: ChangeEvent<HTMLInputElement>) =>  setDisplayedTitle(e.currentTarget.value);
 
     return (
-        editMode ?
-            <TextField
+        editMode
+            ? <TextField
                 variant={"standard"}
                 color={"primary"}
                 value={displayedTitle}
-                onChange={onChangeItemHandler}
                 autoFocus
-                onBlur={offEditMode}
                 disabled={disabled}
-            /> :
-            <span onDoubleClick={onEditMode}>{title}</span>
+                onBlur={offEditMode}
+                onChange={onChangeItemHandler}
+            />
+            : <span onDoubleClick={onEditMode}>{title}</span>
     );
-};
+});
 
 
 // types

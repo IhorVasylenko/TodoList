@@ -25,7 +25,8 @@ const baseArgs = {
 export const TaskIsDoneExample = Template.bind({});
 TaskIsDoneExample.args = {
     ...baseArgs,
-    task: {id: '1',
+    task: {
+        id: '1',
         status: TaskStatuses.Completed,
         title: 'JS',
         priority: TaskPriorities.Later,
