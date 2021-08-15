@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from "react";
-import {TextField} from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
 
 
 export const EditableSpan: React.FC<EditableSpanPropsType> = React.memo((props) => {
@@ -19,7 +19,7 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = React.memo((props) 
         changeTitle(displayedTitle);
     };
 
-    const onChangeItemHandler = (e: ChangeEvent<HTMLInputElement>) =>  setDisplayedTitle(e.currentTarget.value);
+    const onChangeItemHandler = (e: ChangeEvent<HTMLInputElement>) => setDisplayedTitle(e.currentTarget.value);
 
     return (
         editMode

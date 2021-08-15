@@ -1,32 +1,32 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from "react";
 import {todoListAPI} from "../../../api/todoListAPI";
 
 
 export default {
-    title: 'API'
+    title: "API"
 };
 
 
 export const GetTodoLists = () => {
-    const [state, setState] = useState<any>(null)
+    const [state, setState] = useState<any>(null);
     useEffect(() => {
         todoListAPI.getTodoLists()
             .then((res) => {
                 setState(res.data);
-            })
+            });
     }, []);
     return <div> {JSON.stringify(state)}</div>
 };
 
 export const CreateTodolist = () => {
-    const [state, setState] = useState<any>(null)
+    const [state, setState] = useState<any>(null);
     const [todoListTitle, setTodoListTitle] = useState<string>('');
     const createTodoListTitleHandler = () => {
         todoListAPI.createTodolist(todoListTitle.toUpperCase())
             .then((res) => {
                 setState(res.data);
-                setTodoListTitle("")
-            })
+                setTodoListTitle('');
+            });
     };
 
     return (
@@ -36,23 +36,23 @@ export const CreateTodolist = () => {
                 <input
                     placeholder={"todoListTitle"}
                     value={todoListTitle}
-                    onChange={e => setTodoListTitle(e.currentTarget.value)} />
+                    onChange={e => setTodoListTitle(e.currentTarget.value)}/>
                 <button onClick={createTodoListTitleHandler}>
                     create todoList
                 </button>
             </div>
         </div>
-    )
+    );
 };
 
 export const DeleteTodolist = () => {
-    const [state, setState] = useState<any>(null)
+    const [state, setState] = useState<any>(null);
     const [todoListId, setTodoListId] = useState<string>('');
     const deleteTodoListHandler = () => {
         todoListAPI.removeTodolist(todoListId)
             .then((res) => {
                 setState(res.data);
-            })
+            });
     };
 
     return (
@@ -69,18 +69,18 @@ export const DeleteTodolist = () => {
                 </button>
             </div>
         </div>
-    )
+    );
 };
 
 export const UpdateTodolistTitle = () => {
-    const [state, setState] = useState<any>(null)
+    const [state, setState] = useState<any>(null);
     const [todoListId, setTodoListId] = useState<string>('');
     const [todoListTitle, setTodoListTitle] = useState<string>('');
     const updateTodoListTitleHandler = () => {
         todoListAPI.updateTodoListTitle(todoListId, todoListTitle.toUpperCase())
             .then((res) => {
                 setState(res.data);
-            })
+            });
     };
 
     return (
@@ -90,17 +90,17 @@ export const UpdateTodolistTitle = () => {
                 <input
                     placeholder={"todoListId"}
                     value={todoListId}
-                    onChange={e => setTodoListId(e.currentTarget.value)} />
+                    onChange={e => setTodoListId(e.currentTarget.value)}/>
                 <input
                     placeholder={"todoListTitle"}
                     value={todoListTitle}
-                    onChange={e => setTodoListTitle(e.currentTarget.value)} />
+                    onChange={e => setTodoListTitle(e.currentTarget.value)}/>
                 <button onClick={updateTodoListTitleHandler}>
                     update todoList title
                 </button>
             </div>
         </div>
-    )
+    );
 };
 
 
@@ -112,7 +112,7 @@ export const GetTasks = () => {
         todoListAPI.getTasks(todoListId)
             .then((res) => {
                 setState(res.data);
-                setTodoListId("")
+                setTodoListId("");
             })
     };
 
@@ -123,13 +123,13 @@ export const GetTasks = () => {
                 <input
                     placeholder={"todoListId"}
                     value={todoListId}
-                    onChange={e => setTodoListId(e.currentTarget.value)} />
+                    onChange={e => setTodoListId(e.currentTarget.value)}/>
                 <button onClick={getTasksHandler}>
                     get tasks
                 </button>
             </div>
         </div>
-    )
+    );
 };
 
 export const CreateTask = () => {
@@ -141,8 +141,8 @@ export const CreateTask = () => {
         todoListAPI.createTask(todoListId, taskTitle.toUpperCase())
             .then((res) => {
                 setState(res.data);
-                setTasTitle("")
-            })
+                setTasTitle('');
+            });
     };
 
     return (
@@ -152,17 +152,17 @@ export const CreateTask = () => {
                 <input
                     placeholder={"todoListId"}
                     value={todoListId}
-                    onChange={e => setTodoListId(e.currentTarget.value)} />
+                    onChange={e => setTodoListId(e.currentTarget.value)}/>
                 <input
                     placeholder={"taskTitle"}
                     value={taskTitle}
-                    onChange={e => setTasTitle(e.currentTarget.value)} />
+                    onChange={e => setTasTitle(e.currentTarget.value)}/>
                 <button onClick={createTaskTitleHandler}>
                     create task
                 </button>
             </div>
         </div>
-    )
+    );
 };
 
 export const DeleteTask = () => {
@@ -174,7 +174,7 @@ export const DeleteTask = () => {
         todoListAPI.removeTask(todoListId, taskId)
             .then((res) => {
                 setState(res.data);
-            })
+            });
     };
 
     return (
@@ -184,17 +184,17 @@ export const DeleteTask = () => {
                 <input
                     placeholder={"todoListId"}
                     value={todoListId}
-                    onChange={e => setTodoListId(e.currentTarget.value)} />
+                    onChange={e => setTodoListId(e.currentTarget.value)}/>
                 <input
                     placeholder={"taskId"}
                     value={taskId}
-                    onChange={e => setTaskId(e.currentTarget.value)} />
+                    onChange={e => setTaskId(e.currentTarget.value)}/>
                 <button onClick={deleteTaskHandler}>
                     delete task
                 </button>
             </div>
         </div>
-    )
+    );
 };
 
 export const UpdateTaskTitle = () => {
@@ -206,15 +206,15 @@ export const UpdateTaskTitle = () => {
     const updateTaskTitleHandler = () => {
         todoListAPI.updateTask(todoListId, taskId, {
             title: taskTitle.toUpperCase(),
-            description: "",
+            description: '',
             status: 0,
             priority: 0,
-            startDate: "",
-            deadline: "",
+            startDate: '',
+            deadline: '',
         })
             .then((res) => {
                 setState(res.data);
-            })
+            });
     };
 
     return (
@@ -224,19 +224,19 @@ export const UpdateTaskTitle = () => {
                 <input
                     placeholder={"todoListId"}
                     value={todoListId}
-                    onChange={e => setTodoListId(e.currentTarget.value)} />
+                    onChange={e => setTodoListId(e.currentTarget.value)}/>
                 <input
                     placeholder={"taskId"}
                     value={taskId}
-                    onChange={e => setTaskId(e.currentTarget.value)} />
+                    onChange={e => setTaskId(e.currentTarget.value)}/>
                 <input
                     placeholder={"taskTitle"}
                     value={taskTitle}
-                    onChange={e => setTaskTitle(e.currentTarget.value)} />
+                    onChange={e => setTaskTitle(e.currentTarget.value)}/>
                 <button onClick={updateTaskTitleHandler}>
                     update task title
                 </button>
             </div>
         </div>
-    )
+    );
 };

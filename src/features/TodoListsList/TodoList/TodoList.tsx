@@ -2,13 +2,13 @@ import React, {useCallback, useEffect} from "react";
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
 import {Button, IconButton} from "@material-ui/core";
-import {Delete} from "@material-ui/icons";
 import {Task} from "./Task/Task";
 import {TaskStatuses} from "../../../api/todoListAPI";
 import {FilterValuesType, TodoListDomainType} from "../todoListsReducer";
 import {useDispatch} from "react-redux";
 import {fetchTask, TaskDomainType} from "../tasksReducer";
 import {Dispatch} from "redux";
+import {DeleteForever} from "@material-ui/icons";
 
 
 export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
@@ -33,7 +33,7 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
         entityStatus,
     } = todoList;
 
-    const dispatch: Dispatch<any> = useDispatch()
+    const dispatch: Dispatch<any> = useDispatch();
 
     useEffect(() => {
         if (demo) {
@@ -55,10 +55,10 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
     };
 
     let tasksForTodoList = getTaskForTodoList();
-    if (filter === 'active') {
+    if (filter === "active") {
         tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.New);
     }
-    if (filter === 'completed') {
+    if (filter === "completed") {
         tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.Completed);
     }
 
@@ -80,44 +80,48 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
         (title: string) => changeTodoListTitle(id, title),
         [changeTodoListTitle, id]);
     const onClickAllChangeFilterHandler = useCallback(
-        () => changeFilter(id, 'all'),
+        () => changeFilter(id, "all"),
         [changeFilter, id]);
     const onClickActiveChangeFilterHandler = useCallback(
-        () => changeFilter(id, 'active'),
+        () => changeFilter(id, "active"),
         [changeFilter, id]);
     const onClickCompletedChangeFilterHandler = useCallback(
-        () => changeFilter(id, 'completed'),
+        () => changeFilter(id, "completed"),
         [changeFilter, id]);
 
 
     return (
         <div>
-            <h3 >
+            <h3>
                 <EditableSpan title={title} changeTitle={changeTodoListTitleFn} disabled={entityStatus === "loading"}/>
-                <IconButton onClick={onClickRemoveTodoListHandler} disabled={entityStatus === "loading"}>
-                    <Delete/>
+                <IconButton
+                    onClick={onClickRemoveTodoListHandler}
+                    color={"secondary"}
+                    size={"medium"}
+                    disabled={entityStatus === "loading"}>
+                    <DeleteForever/>
                 </IconButton>
             </h3>
-            <AddItemForm addItem={addTaskFn}  disabled={entityStatus === "loading"} />
+            <AddItemForm addItem={addTaskFn} disabled={entityStatus === "loading"}/>
             <div>{tasksList}</div>
             <div>
                 <Button
                     style={{margin: "3px"}}
                     size={"small"}
-                    variant={filter === 'all' ? 'contained' : 'outlined'}
-                    color={filter === 'all' ? 'primary' : 'default'}
+                    variant={filter === "all" ? "contained" : "outlined"}
+                    color={filter === "all" ? "default" : "default"}
                     onClick={onClickAllChangeFilterHandler}>All</Button>
                 <Button
                     style={{margin: "3px"}}
                     size={"small"}
-                    variant={filter === 'active' ? 'contained' : 'outlined'}
-                    color={filter === 'active' ? 'primary' : 'default'}
+                    variant={filter === "active" ? "contained" : "outlined"}
+                    color={filter === "active" ? "primary" : "default"}
                     onClick={onClickActiveChangeFilterHandler}>Active</Button>
                 <Button
                     style={{margin: "3px"}}
                     size={"small"}
-                    variant={filter === 'completed' ? 'contained' : 'outlined'}
-                    color={filter === 'completed' ? 'primary' : 'default'}
+                    variant={filter === "completed" ? "contained" : "outlined"}
+                    color={filter === "completed" ? "primary" : "default"}
                     onClick={onClickCompletedChangeFilterHandler}>Completed</Button>
             </div>
         </div>

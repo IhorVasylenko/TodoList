@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useCallback} from "react";
-import {Checkbox, IconButton} from "@material-ui/core";
+import Checkbox from "@material-ui/core/Checkbox";
+import IconButton from "@material-ui/core/IconButton";
 import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import {Delete} from "@material-ui/icons";
 import {TaskStatuses} from "../../../../api/todoListAPI";
@@ -35,7 +36,7 @@ export const Task: React.FC<TaskPropsType> = React.memo((props) => {
                 onChange={onChengStatusHandler}
                 disabled={task.entityStatus === "loading"}
             />
-            <span className={task.status === TaskStatuses.Completed ? 'is-done' : ''}>
+            <span className={task.status === TaskStatuses.Completed ? "is-done" : ''}>
                     <EditableSpan
                         title={task.title}
                         changeTitle={changeTaskTitleFn}
@@ -43,7 +44,7 @@ export const Task: React.FC<TaskPropsType> = React.memo((props) => {
                     />
                     </span>
             <IconButton onClick={removeTaskFn} style={{opacity: ".7"}} disabled={task.entityStatus === "loading"}>
-                <Delete />
+                <Delete/>
             </IconButton>
         </div>
     );

@@ -1,14 +1,13 @@
 import {AppRootStateType, CommonActionTypeForApp, InferActionType} from "../../app/store";
 import {TaskStatuses, TaskType, todoListAPI, TaskPriorities, UpdateTaskModelType} from "../../api/todoListAPI";
-import {actionsForTodoLists, ThunkDispatchType, ThunkType} from "./todoListsReducer";
-import {actionsForApp, RequestStatusType} from "../../app/appReducer";
-import {AxiosError} from "axios";
+import {actionsForTodoLists} from "./todoListsReducer";
+import {actionsForApp, RequestStatusType, ThunkDispatchType, ThunkType} from "../../app/appReducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 
 let initialState = {} as TasksStateType;
 export const tasksReducer = (state: InitialTasksStateType = initialState, action: CommonActionTypeForApp)
-    : InitialTasksStateType=> {
+    : InitialTasksStateType => {
     switch (action.type) {
         case "TODO/TASK/REMOVE-TASK":
             return {...state, [action.todoListId]: state[action.todoListId].filter(t => t.id !== action.taskId)};
@@ -39,7 +38,7 @@ export const tasksReducer = (state: InitialTasksStateType = initialState, action
         case "TODO/TASK/SET-TASKS":
             return {...state, [action.todoListId]: action.tasks.map(t => ({...t, entityStatus: "idle"}))};
         case "TODO/TASK/UPDATE-TASK-ENTITY-STATUS":
-            return{
+            return {
                 ...state,
                 [action.todoListId]: state[action.todoListId]
                     .map(t => t.id === action.taskId
@@ -75,7 +74,7 @@ export const actionsForTasks = {
         tasks,
     } as const),
     updateTaskEntityStatus: (todoListId: string, taskId: string, entityStatus: RequestStatusType) => ({
-        type:"TODO/TASK/UPDATE-TASK-ENTITY-STATUS",
+        type: "TODO/TASK/UPDATE-TASK-ENTITY-STATUS",
         todoListId,
         taskId,
         entityStatus,
@@ -84,86 +83,82 @@ export const actionsForTasks = {
 
 
 // thanks
-export const fetchTask = (todoListId: string): ThunkType => (dispatch: ThunkDispatchType) => {
-    dispatch(actionsForApp.setAppStatus("loading"));
-    todoListAPI.getTasks(todoListId)
-        .then((res) => {
-            dispatch(actionsForTasks.setTasks(todoListId, res.data.items));
+export const fetchTask = (todoListId: string): ThunkType => async (dispatch: ThunkDispatchType) => {
+    try {
+        dispatch(actionsForApp.setAppStatus("loading"));
+        let res = await todoListAPI.getTasks(todoListId);
+        dispatch(actionsForTasks.setTasks(todoListId, res.data.items));
+        dispatch(actionsForApp.setAppStatus("idle"));
+    } catch (err) {
+        handleServerNetworkError(err, dispatch);
+    }
+};
+
+export const removeTask = (taskId: string, todoListId: string): ThunkType => async (dispatch: ThunkDispatchType) => {
+    try {
+        dispatch(actionsForApp.setAppStatus("loading"));
+        dispatch(actionsForTasks.updateTaskEntityStatus(todoListId, taskId, "loading"));
+        let res = await todoListAPI.removeTask(todoListId, taskId);
+        if (res.data.resultCode === 0) {
+            dispatch(actionsForTasks.removeTask(taskId, todoListId));
             dispatch(actionsForApp.setAppStatus("idle"));
-        })
-        .catch((err: AxiosError) => {
-            handleServerNetworkError(err, dispatch);
-        });
+        } else {
+            handleServerAppError(res.data, dispatch);
+        }
+    } catch (err) {
+        handleServerNetworkError(err, dispatch);
+    }
 };
 
-export const removeTask = (taskId: string, todoListId: string): ThunkType => (dispatch: ThunkDispatchType) => {
-    dispatch(actionsForApp.setAppStatus("loading"));
-    dispatch(actionsForTasks.updateTaskEntityStatus(todoListId, taskId, "loading"));
-    todoListAPI.removeTask(todoListId, taskId)
-        .then((res) => {
-            if (res.data.resultCode === 0) {
-                dispatch(actionsForTasks.removeTask(taskId, todoListId));
-                dispatch(actionsForApp.setAppStatus("idle"));
-            } else {
-                handleServerAppError(res.data, dispatch);
-            }
-        })
-        .catch((err: AxiosError) => {
-            handleServerNetworkError(err, dispatch);
-        });
-};
-
-export const createTask = (todoListId: string, title: string): ThunkType => (dispatch: ThunkDispatchType) => {
-    dispatch(actionsForApp.setAppStatus("loading"));
-    dispatch(actionsForTodoLists.updateTodoListEntityStatus(todoListId, "loading"));
-    todoListAPI.createTask(todoListId, title)
-        .then((res) => {
-            if (res.data.resultCode === 0) {
-                dispatch(actionsForTasks.createTask(res.data.data.item));
-                dispatch(actionsForApp.setAppStatus("succeeded"));
-                dispatch(actionsForTodoLists.updateTodoListEntityStatus(todoListId, "idle"));
-            } else {
-                handleServerAppError(res.data, dispatch);
-            }
-        })
-        .catch((err: AxiosError) => {
-            handleServerNetworkError(err, dispatch);
-        });
+export const createTask = (todoListId: string, title: string): ThunkType => async (dispatch: ThunkDispatchType) => {
+    try {
+        dispatch(actionsForApp.setAppStatus("loading"));
+        dispatch(actionsForTodoLists.updateTodoListEntityStatus(todoListId, "loading"));
+        let res = await todoListAPI.createTask(todoListId, title);
+        if (res.data.resultCode === 0) {
+            dispatch(actionsForTasks.createTask(res.data.data.item));
+            dispatch(actionsForApp.setAppStatus("succeeded"));
+            dispatch(actionsForTodoLists.updateTodoListEntityStatus(todoListId, "idle"));
+        } else {
+            handleServerAppError(res.data, dispatch);
+        }
+    } catch (err) {
+        handleServerNetworkError(err, dispatch);
+    }
 };
 
 export const updateTask = (todoListId: string, taskId: string, domainModel: UpdateDomainTaskModelType): ThunkType =>
-    (dispatch: ThunkDispatchType, getState: () => AppRootStateType) => {
-        dispatch(actionsForApp.setAppStatus("loading"));
-        dispatch(actionsForTasks.updateTaskEntityStatus(todoListId, taskId, "loading"));
-        const task = getState().tasks[todoListId].find( t => t.id === taskId);
-        if (!task) {
-            // throw new Error("task not found in the state");
-            console.warn("task not found in the state");
-            dispatch(actionsForApp.setAppStatus("failed"));
-            return;
+    async (dispatch: ThunkDispatchType, getState: () => AppRootStateType) => {
+        try {
+            dispatch(actionsForApp.setAppStatus("loading"));
+            dispatch(actionsForTasks.updateTaskEntityStatus(todoListId, taskId, "loading"));
+            const task = getState().tasks[todoListId].find(t => t.id === taskId);
+            if (!task) {
+                // throw new Error("task not found in the state");
+                console.warn("task not found in the state");
+                dispatch(actionsForApp.setAppStatus("failed"));
+                return;
+            }
+            const apiModel: UpdateTaskModelType = {
+                status: task.status,
+                description: task.description,
+                title: task.title,
+                priority: task.priority,
+                startDate: task.startDate,
+                deadline: task.deadline,
+                ...domainModel,
+            };
+            let res = await todoListAPI.updateTask(todoListId, taskId, apiModel);
+            if (res.data.resultCode === 0) {
+                dispatch(actionsForTasks.updateTask(taskId, domainModel, todoListId));
+                dispatch(actionsForApp.setAppStatus("idle"));
+                dispatch(actionsForTasks.updateTaskEntityStatus(todoListId, taskId, "idle"));
+            } else {
+                handleServerAppError(res.data, dispatch);
+            }
+        } catch (err) {
+            handleServerNetworkError(err, dispatch);
         }
-        const apiModel: UpdateTaskModelType = {
-            status: task.status,
-            description: task.description,
-            title: task.title,
-            priority: task.priority,
-            startDate: task.startDate,
-            deadline: task.deadline,
-            ...domainModel,
-        };
-        todoListAPI.updateTask(todoListId, taskId, apiModel)
-            .then((res) => {
-                if(res.data.resultCode === 0) {
-                    dispatch(actionsForTasks.updateTask(taskId, domainModel, todoListId));
-                    dispatch(actionsForApp.setAppStatus("idle"));
-                    dispatch(actionsForTasks.updateTaskEntityStatus(todoListId, taskId, "idle"));
-                } else {
-                    handleServerAppError(res.data, dispatch);
-                }
-            })
-            .catch((err: AxiosError) => {
-                handleServerNetworkError(err, dispatch);
-            });
     };
 
 
@@ -174,7 +169,7 @@ export type TaskDomainType = TaskType & {
     entityStatus: RequestStatusType,
 };
 export type TasksStateType = {
-    [key: string] : TaskDomainType[],
+    [key: string]: TaskDomainType[],
 };
 export type UpdateDomainTaskModelType = {
     title?: string

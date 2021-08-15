@@ -13,9 +13,11 @@ import {
 import {createTask, removeTask, TasksStateType, updateTask} from "./tasksReducer";
 import {Dispatch} from "redux";
 import {TaskStatuses} from "../../api/todoListAPI";
-import {Grid, Paper} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 import {TodoList} from "./TodoList/TodoList";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
+import {Redirect} from "react-router-dom";
 
 
 export const TodoListsList: React.FC<TodoListsListPropsType> = React.memo((props) => {
@@ -27,10 +29,12 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = React.memo((props
 
     const todoLists = useSelector<AppRootStateType, Array<TodoListDomainType>>(state => state.todoLists);
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
+
     const dispatch: Dispatch<any> = useDispatch();
 
     useEffect(() => {
-        if (demo) {
+        if (demo || !isLoggedIn) {
             return;
         }
         dispatch(fetchTodoLists());
@@ -63,6 +67,11 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = React.memo((props
         dispatch(updateTask(todoListId, taskId, {title}));
     }, [dispatch]);
 
+
+    if (!isLoggedIn) {
+        return <Redirect to={"/login"}/>
+    }
+
     const todoListsComponents = todoLists.map(tl => {
             let tasksForTodoList = tasks[tl.id]
             return (
@@ -85,6 +94,10 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = React.memo((props
             );
         }
     );
+
+    if (!isLoggedIn) {
+        return <Redirect to={"/login"}/>
+    }
 
     return (
         <>

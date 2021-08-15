@@ -10,31 +10,42 @@ const instance = axios.create({
     },
 });
 
-
 export const todoListAPI = {
     getTodoLists() {
-        return instance.get<TodoListType[]>('todo-lists');
+        return instance.get<TodoListType[]>("todo-lists");
     },
     createTodolist(title: string) {
-        return instance.post<ResponseType<{item: TodoListType}>>('todo-lists', { title });
+        return instance.post<ResponseType<{ item: TodoListType }>>("todo-lists", {title});
     },
     removeTodolist(todoListId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todoListId}`);
     },
     updateTodoListTitle(todoListId: string, title: string) {
-        return instance.put<ResponseType<{item: TodoListType}>>(`todo-lists/${todoListId}`, { title });
+        return instance.put<ResponseType<{ item: TodoListType }>>(`todo-lists/${todoListId}`, {title});
     },
     getTasks(todoListId: string) {
         return instance.get<GetTasksResponse>(`todo-lists/${todoListId}/tasks`);
     },
     createTask(todoListId: string, title: string) {
-        return instance.post<ResponseType<{item: TaskType}>>(`todo-lists/${todoListId}/tasks`, { title });
+        return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todoListId}/tasks`, {title});
     },
     removeTask(todoListId: string, taskId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todoListId}/tasks/${taskId}`);
     },
     updateTask(todoListId: string, taskId: string, updateTask: UpdateTaskModelType) {
         return instance.put<ResponseType<TaskType>>(`todo-lists/${todoListId}/tasks/${taskId}`, updateTask);
+    },
+};
+
+export const authAPI = {
+    login(data: LoginType) {
+        return instance.post<ResponseType<{ userId: number }>>("auth/login", data);
+    },
+    me() {
+        return instance.get<ResponseType<AuthMeType>>("auth/me");
+    },
+    logout() {
+        return instance.delete<ResponseType>("auth/login");
     },
 };
 
@@ -89,6 +100,19 @@ export type ResponseType<D = {}> = {
     resultCode: number
     messages: string[]
     fieldsErrors: string[]
+};
+
+export type AuthMeType = {
+    id: number
+    email: string
+    login: string
+};
+
+export type LoginType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
 };
 
 type GetTasksResponse = {
