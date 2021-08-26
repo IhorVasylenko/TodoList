@@ -2,6 +2,7 @@ import {CommonActionTypeForApp, InferActionType} from "../../app/store";
 import {authAPI, LoginType} from "../../api/todoListAPI";
 import {actionsForApp, ThunkDispatchType, ThunkType} from "../../app/appReducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {actionsForTodoLists} from "../TodoListsList/todoListsReducer";
 
 
 const initialState = {
@@ -31,7 +32,7 @@ export const login = (data: LoginType): ThunkType => async (dispatch: ThunkDispa
         dispatch(actionsForApp.setAppStatus("loading"));
         let res = await authAPI.login(data);
         if (res.data.resultCode === 0) {
-            dispatch(actionsForAuth.setIsLoggedIn(true))
+            dispatch(actionsForAuth.setIsLoggedIn(true));
             dispatch(actionsForApp.setAppStatus("succeeded"));
         } else {
             handleServerAppError(res.data, dispatch);
@@ -46,13 +47,14 @@ export const logout = (): ThunkType => async (dispatch: ThunkDispatchType) => {
         dispatch(actionsForApp.setAppStatus("loading"));
         let res = await authAPI.logout();
         if (res.data.resultCode === 0) {
-            dispatch(actionsForAuth.setIsLoggedIn(false))
-            dispatch(actionsForApp.setAppStatus("succeeded"))
+            dispatch(actionsForAuth.setIsLoggedIn(false));
+            dispatch(actionsForApp.setAppStatus("succeeded"));
+            dispatch(actionsForTodoLists.clearData());
         } else {
-            handleServerAppError(res.data, dispatch)
+            handleServerAppError(res.data, dispatch);
         }
     } catch (err) {
-        handleServerNetworkError(err, dispatch)
+        handleServerNetworkError(err, dispatch);
     }
 };
 

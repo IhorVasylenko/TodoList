@@ -45,6 +45,8 @@ export const tasksReducer = (state: InitialTasksStateType = initialState, action
                         ? {...t, entityStatus: action.entityStatus}
                         : t)
             };
+        case "TODO/TODOLIST/CLEAR-DATA":
+            return initialState;
         default:
             return state;
     }
@@ -166,10 +168,10 @@ export const updateTask = (todoListId: string, taskId: string, domainModel: Upda
 export type InitialTasksStateType = typeof initialState;
 export type TaskActionType = InferActionType<typeof actionsForTasks>;
 export type TaskDomainType = TaskType & {
-    entityStatus: RequestStatusType,
+    entityStatus: RequestStatusType
 };
 export type TasksStateType = {
-    [key: string]: TaskDomainType[],
+    [key: string]: TaskDomainType[]
 };
 export type UpdateDomainTaskModelType = {
     title?: string

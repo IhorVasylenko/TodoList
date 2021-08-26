@@ -2,6 +2,7 @@ import {CommonActionTypeForApp, InferActionType} from "../../app/store";
 import {todoListAPI, TodoListType} from "../../api/todoListAPI";
 import {actionsForApp, RequestStatusType, ThunkDispatchType, ThunkType} from "../../app/appReducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {fetchTask} from "./tasksReducer";
 
 
 let initialState = [] as Array<TodoListDomainType>;
@@ -21,6 +22,8 @@ export const todoListsReducer = (state: InitialTodoListStateType = initialState,
             return action.todoLists.map((tl) => ({...tl, filter: 'all', entityStatus: "idle"}));
         case "TODO/TODOLIST/UPDATE-TODOLIST-ENTITY-STATUS":
             return state.map(tl => tl.id === action.todoListId ? {...tl, entityStatus: action.entityStatus} : tl);
+        case "TODO/TODOLIST/CLEAR-DATA":
+            return initialState;
         default:
             return state;
     }
@@ -56,6 +59,9 @@ export const actionsForTodoLists = {
         todoListId,
         entityStatus,
     } as const),
+    clearData: () => ({
+        type: "TODO/TODOLIST/CLEAR-DATA"
+    } as const),
 };
 
 
@@ -66,7 +72,11 @@ export const fetchTodoLists = (): ThunkType => async (dispatch: ThunkDispatchTyp
         let res = await todoListAPI.getTodoLists();
         dispatch(actionsForTodoLists.setTodoLists(res.data));
         dispatch(actionsForApp.setAppStatus("idle"));
-    } catch (err) {
+        res.data.forEach((tl) => {
+            dispatch(fetchTask(tl.id));
+        })
+    }
+    catch (err) {
         handleServerNetworkError(err, dispatch);
     }
 };
