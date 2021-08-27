@@ -1,7 +1,7 @@
-import {AppDispatchType, AppRootStateType} from "./store";
-import {authAPI} from "../api/todoListAPI";
+import {AppDispatchType, AppRootStateType} from "../store";
+import {authAPI} from "../../api/todoListAPI";
 import {ThunkAction} from "redux-thunk";
-import {setIsLoggedIn} from "../features/login/authReducer";
+import {setIsLoggedIn} from "../../features/login/reducer/authReducer";
 import {Action, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 

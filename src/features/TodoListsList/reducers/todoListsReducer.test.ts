@@ -3,7 +3,7 @@ import {
     todoListsReducer, updateTodoListEntityStatus, updateTodoListFilter, updateTodoListTitle
 } from "./todoListsReducer";
 import {v1} from "uuid";
-import {RequestStatusType} from "../../app/appReducer";
+import {RequestStatusType} from "../../../app/reducer/appReducer";
 
 
 let todoListId1: string;

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import './App.css';
+import './style/App.css';
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
@@ -12,13 +12,13 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import {TodoListsList} from "../features/TodoListsList/TodoListsList";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
-import {AppInitialStateType, initializeApp} from "./appReducer";
+import {AppInitialStateType, initializeApp} from "./reducer/appReducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {Login} from "../features/login/Login";
 import {Switch, Route, Redirect} from "react-router-dom";
 import {Error404} from "../features/404/Error404";
 import {Dispatch} from "redux";
-import {logout} from "../features/login/authReducer";
+import {logout} from "../features/login/reducer/authReducer";
 
 
 export const App: React.FC<AppPropsType> = (props) => {

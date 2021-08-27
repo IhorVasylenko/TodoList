@@ -3,12 +3,12 @@ import {Provider} from "react-redux";
 import {combineReducers} from "redux";
 import {v1} from "uuid";
 import {AppRootStateType, RootReducerType} from "../app/store";
-import {tasksReducer} from "../features/TodoListsList/tasksReducer";
-import {todoListsReducer} from "../features/TodoListsList/todoListsReducer";
+import {tasksReducer} from "../features/TodoListsList/reducers/tasksReducer";
+import {todoListsReducer} from "../features/TodoListsList/reducers/todoListsReducer";
 import {TaskStatuses, TaskPriorities} from "../api/todoListAPI";
-import {appReducer} from "../app/appReducer";
+import {appReducer} from "../app/reducer/appReducer";
 import thunk from "redux-thunk";
-import {authReducer} from "../features/login/authReducer";
+import {authReducer} from "../features/login/reducer/authReducer";
 import {configureStore} from "@reduxjs/toolkit";
 
 

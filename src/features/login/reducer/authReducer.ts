@@ -1,9 +1,9 @@
-import {authAPI, LoginType} from "../../api/todoListAPI";
-import {setAppStatus, ThunkType} from "../../app/appReducer";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {authAPI, LoginType} from "../../../api/todoListAPI";
+import {setAppStatus, ThunkType} from "../../../app/reducer/appReducer";
+import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppDispatchType} from "../../app/store";
-import {clearData} from "../TodoListsList/todoListsReducer";
+import {AppDispatchType} from "../../../app/store";
+import {clearData} from "../../TodoListsList/reducers/todoListsReducer";
 
 
 const initialState = {

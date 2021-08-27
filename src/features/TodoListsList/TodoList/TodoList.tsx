@@ -4,8 +4,8 @@ import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
 import {Button, IconButton} from "@material-ui/core";
 import {Task} from "./Task/Task";
 import {TaskStatuses} from "../../../api/todoListAPI";
-import {FilterValuesType, TodoListDomainType} from "../todoListsReducer";
-import {fetchTask, TaskDomainType} from "../tasksReducer";
+import {FilterValuesType, TodoListDomainType} from "../reducers/todoListsReducer";
+import {fetchTask, TaskDomainType} from "../reducers/tasksReducer";
 import {DeleteForever} from "@material-ui/icons";
 import {AppDispatchType, useAppDispatch} from "../../../app/store";
 

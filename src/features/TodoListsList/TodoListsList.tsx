@@ -8,8 +8,8 @@ import {
     TodoListDomainType,
     modernizeTodoListTitle,
     updateTodoListFilter, deleteTodoList
-} from "./todoListsReducer";
-import {produceTask, TasksStateType, modernizeTask, deleteTask} from "./tasksReducer";
+} from "./reducers/todoListsReducer";
+import {produceTask, TasksStateType, modernizeTask, deleteTask} from "./reducers/tasksReducer";
 import {TaskStatuses} from "../../api/todoListAPI";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";

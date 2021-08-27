@@ -12,7 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/store";
 import {Redirect} from "react-router-dom";
 import {Dispatch} from "redux";
-import {login} from "./authReducer";
+import {login} from "./reducer/authReducer";
 
 export const Login: React.FC = React.memo(() => {
 

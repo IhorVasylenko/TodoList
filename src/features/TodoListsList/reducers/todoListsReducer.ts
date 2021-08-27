@@ -1,7 +1,7 @@
-import {AppDispatchType} from "../../app/store";
-import {todoListAPI, TodoListType} from "../../api/todoListAPI";
-import {abilityToAddTodoList, RequestStatusType, setAppStatus, ThunkType} from "../../app/appReducer";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {AppDispatchType} from "../../../app/store";
+import {todoListAPI, TodoListType} from "../../../api/todoListAPI";
+import {abilityToAddTodoList, RequestStatusType, setAppStatus, ThunkType} from "../../../app/reducer/appReducer";
+import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 

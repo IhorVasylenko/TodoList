@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import {Delete} from "@material-ui/icons";
 import {TaskStatuses} from "../../../../api/todoListAPI";
-import {TaskDomainType} from "../../tasksReducer";
+import {TaskDomainType} from "../../reducers/tasksReducer";
 
 
 export const Task: React.FC<TaskPropsType> = React.memo((props) => {
