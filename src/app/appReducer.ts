@@ -1,7 +1,8 @@
-import {AppRootStateType, CommonActionTypeForApp, InferActionType} from "./store";
+import {AppDispatch, AppRootStateType} from "./store";
 import {authAPI} from "../api/todoListAPI";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {actionsForAuth} from "../features/login/authReducer";
+import {ThunkAction} from "redux-thunk";
+import {setIsLoggedIn} from "../features/login/authReducer";
+import {Action, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 const initialState = {
@@ -11,48 +12,45 @@ const initialState = {
     isInitialized: false,
 } as AppInitialStateType;
 
-export const appReducer = (state: InitialAppStateType = initialState, action: CommonActionTypeForApp): InitialAppStateType => {
-    switch (action.type) {
-        case "TODO/APP/SET-STATUS":
-            return {...state, status: action.status};
-        case "TODO/APP/SET-ERROR":
-            return {...state, error: action.error};
-        case "TODO/APP/ABILITY-TO-ADD-TODOLIST":
-            return {...state, addingTodoList: action.ability};
-        case "TODO/APP/IS-INITIALIZED":
-            return {...state, isInitialized: action.isInitialized};
-        default:
-            return state;
-    }
-};
+const slice = createSlice({
+    name: "app",
+    initialState,
+    reducers: {
+        setAppStatus(state, action: PayloadAction<RequestStatusType>) {
+            state.status = action.payload;
+        },
+        setAppError(state, action: PayloadAction<string | null>) {
+            state.error = action.payload;
+        },
+        abilityToAddTodoList(state, action: PayloadAction<boolean>) {
+            state.addingTodoList = action.payload;
+        },
+        setIsInitialized(state, action: PayloadAction<boolean>) {
+            state.isInitialized = action.payload;
+        },
+    },
+});
 
+export const appReducer = slice.reducer;
 
-// actions
-export const actionsForApp = {
-    setAppStatus: (status: RequestStatusType) => ({type: "TODO/APP/SET-STATUS", status} as const),
-    setAppError: (error: string | null) => ({type: "TODO/APP/SET-ERROR", error} as const),
-    abilityToAddTodoList: (ability: boolean) => ({type: "TODO/APP/ABILITY-TO-ADD-TODOLIST", ability} as const),
-    setIsInitialized: (isInitialized: boolean) => ({type: "TODO/APP/IS-INITIALIZED", isInitialized} as const),
-};
+export const {setAppStatus, setIsInitialized, abilityToAddTodoList, setAppError} = slice.actions;
 
 
 // thunks
-export const initializeApp = (): ThunkType => async (dispatch: ThunkDispatchType) => {
+export const initializeApp = (): ThunkType => async (dispatch: AppDispatch) => {
     try {
         let res = await authAPI.me();
         if (res.data.resultCode === 0) {
-            dispatch(actionsForAuth.setIsLoggedIn(true));
-            dispatch(actionsForApp.setIsInitialized(true));
+            dispatch(setIsLoggedIn(true));
+            dispatch(setIsInitialized(true));
         }
     } finally {
-        dispatch(actionsForApp.setIsInitialized(true));
+        dispatch(setIsInitialized(true));
     }
 };
 
 
 // types
-export type InitialAppStateType = typeof initialState;
-export type AppActionType = InferActionType<typeof actionsForApp>;
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed";
 export type AppInitialStateType = {
     status: RequestStatusType
@@ -60,6 +58,5 @@ export type AppInitialStateType = {
     addingTodoList: boolean
     isInitialized: boolean
 };
-export type ThunkType = ThunkAction<void, AppRootStateType, unknown, CommonActionTypeForApp>;
-export type ThunkDispatchType = ThunkDispatch<AppRootStateType, unknown, CommonActionTypeForApp>;
+export type ThunkType = ThunkAction<void, AppRootStateType, unknown, Action<string>>;
 

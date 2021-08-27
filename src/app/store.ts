@@ -1,9 +1,11 @@
-import {TaskActionType, tasksReducer} from "../features/TodoListsList/tasksReducer";
-import {TodoListActionType, todoListsReducer} from "../features/TodoListsList/todoListsReducer";
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {tasksReducer} from "../features/TodoListsList/tasksReducer";
+import {todoListsReducer} from "../features/TodoListsList/todoListsReducer";
+import {combineReducers} from "redux";
 import thunk from "redux-thunk";
-import {AppActionType, appReducer} from "./appReducer";
-import {AuthActionType, authReducer} from "../features/login/authReducer";
+import {appReducer} from "./appReducer";
+import {authReducer} from "../features/login/authReducer";
+import {configureStore} from "@reduxjs/toolkit";
+import {useDispatch} from "react-redux";
 
 
 const rootReducer = combineReducers({
@@ -13,13 +15,15 @@ const rootReducer = combineReducers({
     auth: authReducer,
 });
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
+});
 
 export type AppRootStateType = ReturnType<typeof rootReducer>;
 
-export type CommonActionTypeForApp = TodoListActionType | TaskActionType | AppActionType | AuthActionType;
-
-export type InferActionType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 
 // @ts-ignore

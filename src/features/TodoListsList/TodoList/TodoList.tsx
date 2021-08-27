@@ -1,12 +1,13 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
 import {Button, IconButton} from "@material-ui/core";
 import {Task} from "./Task/Task";
 import {TaskStatuses} from "../../../api/todoListAPI";
 import {FilterValuesType, TodoListDomainType} from "../todoListsReducer";
-import {TaskDomainType} from "../tasksReducer";
+import {fetchTask, TaskDomainType} from "../tasksReducer";
 import {DeleteForever} from "@material-ui/icons";
+import {AppDispatch, useAppDispatch} from "../../../app/store";
 
 
 export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
@@ -21,6 +22,7 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
         changeFilter,
         tasks,
         addTask,
+        demo,
     } = props;
 
     const {
@@ -29,6 +31,16 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
         filter,
         entityStatus,
     } = todoList;
+
+    const dispatch: AppDispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (demo) {
+            return;
+        }
+        dispatch(fetchTask(id));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const getTaskForTodoList = () => {
         switch (filter) {

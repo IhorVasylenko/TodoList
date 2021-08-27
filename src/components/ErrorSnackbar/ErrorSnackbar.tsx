@@ -1,10 +1,9 @@
 import React from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, {AlertProps} from "@material-ui/lab/Alert";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../app/store";
-import {actionsForApp} from "../../app/appReducer";
-import {Dispatch} from "redux";
+import {useSelector} from "react-redux";
+import {AppDispatch, AppRootStateType, useAppDispatch} from "../../app/store";
+import {setAppError} from "../../app/appReducer";
 
 
 function Alert(props: AlertProps) {
@@ -17,13 +16,13 @@ function Alert(props: AlertProps) {
 export const ErrorSnackbar: React.FC = React.memo(() => {
 
     const error = useSelector<AppRootStateType, string | null>(state => state.app.error);
-    const dispatch: Dispatch<any> = useDispatch();
+    const dispatch: AppDispatch = useAppDispatch();
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === "clickaway") {
             return;
         }
-        dispatch(actionsForApp.setAppError(null));
+        dispatch(setAppError(null));
     }
 
     const isOpen = error !== null;

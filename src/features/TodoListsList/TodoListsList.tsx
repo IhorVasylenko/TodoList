@@ -1,17 +1,15 @@
 import React, {useCallback, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../app/store";
+import {useSelector} from "react-redux";
+import {AppDispatch, AppRootStateType, useAppDispatch} from "../../app/store";
 import {
-    actionsForTodoLists,
-    createTodoList,
+    produceTodoList,
     fetchTodoLists,
     FilterValuesType,
-    removeTodoList,
     TodoListDomainType,
-    updateTodoListTitle
+    modernizeTodoListTitle,
+    updateTodoListFilter, deleteTodoList
 } from "./todoListsReducer";
-import {createTask, removeTask, TasksStateType, updateTask} from "./tasksReducer";
-import {Dispatch} from "redux";
+import {produceTask, TasksStateType, modernizeTask, deleteTask} from "./tasksReducer";
 import {TaskStatuses} from "../../api/todoListAPI";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -31,7 +29,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = React.memo((props
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
 
-    const dispatch: Dispatch<any> = useDispatch();
+    const dispatch: AppDispatch = useAppDispatch();
 
     useEffect(() => {
         if (demo || !isLoggedIn) {
@@ -41,36 +39,31 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = React.memo((props
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const deleteTodoList = useCallback((todoListId: string) => {
-        dispatch(removeTodoList(todoListId));
+    const removeTodoList = useCallback((todoListId: string) => {
+        dispatch(deleteTodoList(todoListId));
     }, [dispatch]);
     const addTodoList = useCallback((title: string) => {
-        dispatch(createTodoList(title));
+        dispatch(produceTodoList(title));
     }, [dispatch]);
     const changeTodoListTitle = useCallback((todoListId: string, title: string) => {
-        dispatch(updateTodoListTitle(todoListId, title));
+        dispatch(modernizeTodoListTitle(todoListId, title));
     }, [dispatch]);
     const changeTodoListFilter = useCallback((todoListId: string, filter: FilterValuesType) => {
-        dispatch(actionsForTodoLists.updateTodoListFilter(todoListId, filter));
+        dispatch(updateTodoListFilter({todoListId, filter}));
     }, [dispatch]);
 
-    const deleteTask = useCallback((taskId: string, todoListId: string) => {
-        dispatch(removeTask(taskId, todoListId));
+    const removeTask = useCallback((taskId: string, todoListId: string) => {
+        dispatch(deleteTask(taskId, todoListId));
     }, [dispatch]);
     const addTask = useCallback((title: string, todoListId: string) => {
-        dispatch(createTask(todoListId, title));
+        dispatch(produceTask(todoListId, title));
     }, [dispatch]);
     const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses, todoListId: string) => {
-        dispatch(updateTask(todoListId, taskId, {status}));
+        dispatch(modernizeTask(todoListId, taskId, {status}));
     }, [dispatch]);
     const changeTaskTitle = useCallback((taskId: string, title: string, todoListId: string) => {
-        dispatch(updateTask(todoListId, taskId, {title}));
+        dispatch(modernizeTask(todoListId, taskId, {title}));
     }, [dispatch]);
-
-
-    if (!isLoggedIn) {
-        return <Redirect to={"/login"}/>
-    }
 
     const todoListsComponents = todoLists.map(tl => {
             let tasksForTodoList = tasks[tl.id]
@@ -80,12 +73,12 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = React.memo((props
                         <TodoList
                             todoList={tl}
                             demo={demo}
-                            removeTask={deleteTask}
+                            removeTask={removeTask}
                             addTask={addTask}
                             changeFilter={changeTodoListFilter}
                             changeTaskStatus={changeTaskStatus}
                             tasks={tasksForTodoList}
-                            removeTodoList={deleteTodoList}
+                            removeTodoList={removeTodoList}
                             changeTaskTitle={changeTaskTitle}
                             changeTodoListTitle={changeTodoListTitle}
                         />

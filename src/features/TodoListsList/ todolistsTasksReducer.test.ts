@@ -1,5 +1,6 @@
-import {actionsForTodoLists, TodoListDomainType, todoListsReducer} from "./todoListsReducer";
+import {createTodoList, TodoListDomainType, todoListsReducer} from "./todoListsReducer";
 import {tasksReducer, TasksStateType} from "./tasksReducer";
+
 
 test("ids should be equals", () => {
     const startTasksState: TasksStateType = {};
@@ -13,7 +14,7 @@ test("ids should be equals", () => {
         entityStatus: "idle",
     };
 
-    const action = actionsForTodoLists.createTodoList(newTodoList);
+    const action = createTodoList(newTodoList);
 
     const endTasksState = tasksReducer(startTasksState, action)
     const endTodoListsState = todoListsReducer(startTodoListsState, action)
@@ -22,7 +23,7 @@ test("ids should be equals", () => {
     const idFromTasks = keys[0];
     const idFromTodoLists = endTodoListsState[0].id;
 
-    expect(idFromTasks).toBe(action.todoList.id);
-    expect(idFromTodoLists).toBe(action.todoList.id);
+    expect(idFromTasks).toBe(action.payload.id);
+    expect(idFromTodoLists).toBe(action.payload.id);
 });
 
