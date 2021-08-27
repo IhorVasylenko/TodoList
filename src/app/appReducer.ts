@@ -1,4 +1,4 @@
-import {AppDispatch, AppRootStateType} from "./store";
+import {AppDispatchType, AppRootStateType} from "./store";
 import {authAPI} from "../api/todoListAPI";
 import {ThunkAction} from "redux-thunk";
 import {setIsLoggedIn} from "../features/login/authReducer";
@@ -37,7 +37,7 @@ export const {setAppStatus, setIsInitialized, abilityToAddTodoList, setAppError}
 
 
 // thunks
-export const initializeApp = (): ThunkType => async (dispatch: AppDispatch) => {
+export const initializeApp = (): ThunkType => async (dispatch: AppDispatchType) => {
     try {
         let res = await authAPI.me();
         if (res.data.resultCode === 0) {

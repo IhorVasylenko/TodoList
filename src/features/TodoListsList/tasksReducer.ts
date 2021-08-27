@@ -1,4 +1,4 @@
-import {AppDispatch, AppRootStateType} from "../../app/store";
+import {AppDispatchType, AppRootStateType} from "../../app/store";
 import {TaskStatuses, TaskType, todoListAPI, TaskPriorities, UpdateTaskModelType} from "../../api/todoListAPI";
 import {RequestStatusType, setAppStatus, ThunkType} from "../../app/appReducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
@@ -62,7 +62,7 @@ export const {removeTask, createTask, setTasks, updateTask, updateTaskEntityStat
 
 
 // thanks
-export const fetchTask = (todoListId: string): ThunkType => async (dispatch: AppDispatch) => {
+export const fetchTask = (todoListId: string): ThunkType => async (dispatch: AppDispatchType) => {
     try {
         dispatch(setAppStatus("loading"));
         let res = await todoListAPI.getTasks(todoListId);
@@ -73,7 +73,7 @@ export const fetchTask = (todoListId: string): ThunkType => async (dispatch: App
     }
 };
 
-export const deleteTask = (taskId: string, todoListId: string): ThunkType => async (dispatch: AppDispatch) => {
+export const deleteTask = (taskId: string, todoListId: string): ThunkType => async (dispatch: AppDispatchType) => {
     try {
         dispatch(setAppStatus("loading"));
         dispatch(updateTaskEntityStatus({todoListId, taskId, entityStatus: "loading"}));
@@ -89,7 +89,7 @@ export const deleteTask = (taskId: string, todoListId: string): ThunkType => asy
     }
 };
 
-export const produceTask = (todoListId: string, title: string): ThunkType => async (dispatch: AppDispatch) => {
+export const produceTask = (todoListId: string, title: string): ThunkType => async (dispatch: AppDispatchType) => {
     try {
         dispatch(setAppStatus("loading"));
         dispatch(updateTodoListEntityStatus({todoListId, entityStatus: "loading"}));
@@ -107,7 +107,7 @@ export const produceTask = (todoListId: string, title: string): ThunkType => asy
 };
 
 export const modernizeTask = (todoListId: string, taskId: string, domainModel: UpdateDomainTaskModelType): ThunkType =>
-    async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
+    async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
         try {
             dispatch(setAppStatus("loading"));
             dispatch(updateTaskEntityStatus({todoListId, taskId, entityStatus: "loading"}));

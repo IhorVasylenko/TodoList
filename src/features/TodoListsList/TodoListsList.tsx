@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from "react";
 import {useSelector} from "react-redux";
-import {AppDispatch, AppRootStateType, useAppDispatch} from "../../app/store";
+import {AppDispatchType, AppRootStateType, useAppDispatch} from "../../app/store";
 import {
     produceTodoList,
     fetchTodoLists,
@@ -29,7 +29,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = React.memo((props
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
 
-    const dispatch: AppDispatch = useAppDispatch();
+    const dispatch: AppDispatchType = useAppDispatch();
 
     useEffect(() => {
         if (demo || !isLoggedIn) {

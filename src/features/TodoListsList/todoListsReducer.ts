@@ -1,4 +1,4 @@
-import {AppDispatch} from "../../app/store";
+import {AppDispatchType} from "../../app/store";
 import {todoListAPI, TodoListType} from "../../api/todoListAPI";
 import {abilityToAddTodoList, RequestStatusType, setAppStatus, ThunkType} from "../../app/appReducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
@@ -55,7 +55,7 @@ export const {
 
 
 // thanks
-export const fetchTodoLists = (): ThunkType => async (dispatch: AppDispatch) => {
+export const fetchTodoLists = (): ThunkType => async (dispatch: AppDispatchType) => {
     try {
         dispatch(setAppStatus("loading"));
         let res = await todoListAPI.getTodoLists();
@@ -69,7 +69,7 @@ export const fetchTodoLists = (): ThunkType => async (dispatch: AppDispatch) => 
     }
 };
 
-export const deleteTodoList = (todoListId: string): ThunkType => async (dispatch: AppDispatch) => {
+export const deleteTodoList = (todoListId: string): ThunkType => async (dispatch: AppDispatchType) => {
     try {
         dispatch(setAppStatus("loading"));
         dispatch(updateTodoListEntityStatus({todoListId, entityStatus: "loading"}));
@@ -85,7 +85,7 @@ export const deleteTodoList = (todoListId: string): ThunkType => async (dispatch
     }
 };
 
-export const produceTodoList = (title: string): ThunkType => async (dispatch: AppDispatch) => {
+export const produceTodoList = (title: string): ThunkType => async (dispatch: AppDispatchType) => {
     try {
         dispatch(setAppStatus("loading"));
         dispatch(abilityToAddTodoList(true));
@@ -103,7 +103,7 @@ export const produceTodoList = (title: string): ThunkType => async (dispatch: Ap
 };
 
 export const modernizeTodoListTitle = (todoListId: string, title: string): ThunkType =>
-    async (dispatch: AppDispatch) => {
+    async (dispatch: AppDispatchType) => {
         try {
             dispatch(setAppStatus("loading"));
             dispatch(updateTodoListEntityStatus({todoListId, entityStatus: "loading"}));

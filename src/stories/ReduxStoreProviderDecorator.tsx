@@ -2,17 +2,21 @@ import React from "react";
 import {Provider} from "react-redux";
 import {combineReducers} from "redux";
 import {v1} from "uuid";
-import {AppRootStateType} from "../app/store";
+import {AppRootStateType, RootReducerType} from "../app/store";
 import {tasksReducer} from "../features/TodoListsList/tasksReducer";
 import {todoListsReducer} from "../features/TodoListsList/todoListsReducer";
 import {TaskStatuses, TaskPriorities} from "../api/todoListAPI";
 import {appReducer} from "../app/appReducer";
 import thunk from "redux-thunk";
+import {authReducer} from "../features/login/authReducer";
+import {configureStore} from "@reduxjs/toolkit";
 
-const rootReducer = combineReducers({
+
+const rootReducer: RootReducerType = combineReducers({
     tasks: tasksReducer,
     todoLists: todoListsReducer,
     app: appReducer,
+    auth: authReducer,
 });
 
 
@@ -54,7 +58,7 @@ const initialGlobalState: AppRootStateType = {
         isInitialized: true,
     },
     auth: {
-        isLoggedIn: false,
+        isLoggedIn: true,
     },
 };
 

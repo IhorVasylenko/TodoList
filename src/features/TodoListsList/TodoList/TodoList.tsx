@@ -7,7 +7,7 @@ import {TaskStatuses} from "../../../api/todoListAPI";
 import {FilterValuesType, TodoListDomainType} from "../todoListsReducer";
 import {fetchTask, TaskDomainType} from "../tasksReducer";
 import {DeleteForever} from "@material-ui/icons";
-import {AppDispatch, useAppDispatch} from "../../../app/store";
+import {AppDispatchType, useAppDispatch} from "../../../app/store";
 
 
 export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
@@ -32,7 +32,7 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
         entityStatus,
     } = todoList;
 
-    const dispatch: AppDispatch = useAppDispatch();
+    const dispatch: AppDispatchType = useAppDispatch();
 
     useEffect(() => {
         if (demo) {

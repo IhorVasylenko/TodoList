@@ -2,7 +2,7 @@ import {authAPI, LoginType} from "../../api/todoListAPI";
 import {setAppStatus, ThunkType} from "../../app/appReducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppDispatch} from "../../app/store";
+import {AppDispatchType} from "../../app/store";
 import {clearData} from "../TodoListsList/todoListsReducer";
 
 
@@ -25,7 +25,7 @@ export const {setIsLoggedIn} = slice.actions;
 
 
 // thunks
-export const login = (data: LoginType): ThunkType => async (dispatch: AppDispatch) => {
+export const login = (data: LoginType): ThunkType => async (dispatch: AppDispatchType) => {
     try {
         dispatch(setAppStatus("loading"));
         let res = await authAPI.login(data);
@@ -40,7 +40,7 @@ export const login = (data: LoginType): ThunkType => async (dispatch: AppDispatc
     }
 };
 
-export const logout = (): ThunkType => async (dispatch: AppDispatch) => {
+export const logout = (): ThunkType => async (dispatch: AppDispatchType) => {
     try {
         dispatch(setAppStatus("loading"));
         let res = await authAPI.logout();
