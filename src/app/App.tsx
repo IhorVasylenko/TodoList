@@ -34,7 +34,9 @@ export const App: React.FC<AppPropsType> = (props) => {
     const dispatch: Dispatch<any> = useDispatch();
 
     useEffect(() => {
-        dispatch(initializeApp())
+        if (!demo) {
+            dispatch(initializeApp())
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
