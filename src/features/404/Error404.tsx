@@ -1,6 +1,18 @@
 import React from "react";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../app/store";
+import {Redirect} from "react-router-dom";
 
 export const Error404: React.FC = React.memo(() => {
+
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
+
+    debugger
+
+    if(isLoggedIn) {
+        return <Redirect from={"/404"} to={"/"}/>
+    }
+
     return (
         <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "50px"}}>
             <div style={{height: "80vh", width: "80vm", textAlign: "center"}}>
