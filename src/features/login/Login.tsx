@@ -33,8 +33,8 @@ export const Login: React.FC = React.memo(() => {
             }
             if (!values.password) {
                 errors.password = "Required";
-            } else if (values.password.length < 5) {
-                errors.password = "Invalid password, minimum length 5 characters";
+            } else if (values.password.length < 4) {
+                errors.password = "Invalid password, minimum length 4 characters";
             } else if (values.password.length > 20) {
                 errors.password = "Invalid password, maximum length 20 characters";
             }
