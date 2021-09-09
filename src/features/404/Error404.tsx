@@ -4,11 +4,14 @@ import error404 from "../../image/error404.png"
 export const Error404: React.FC = React.memo(() => {
     return (
         <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "50px"}}>
-            <img
-                src={error404}
-                alt="error 404"
-                style={{height: "100%", width: "auto"}}
-            />
+            <div style={{height: "80vh", width: "80vm", textAlign: "center"}}>
+                <h1 style={{fontSize: "20vh", fontWeight: 700, color: "red", textTransform: "uppercase"}}>
+                    error 404
+                </h1>
+                <p style={{fontSize: "2vh", fontWeight: 500}}>
+                    Oops, something went wrong. We are already looking for a solution to your problem.
+                </p>
+            </div>
         </div>
     );
 });

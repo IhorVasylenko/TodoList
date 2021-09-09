@@ -11,13 +11,12 @@ import {Menu} from "@material-ui/icons";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {TodoListsList} from "../features/TodoListsList/TodoListsList";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./store";
+import {AppRootStateType, useAppDispatch} from "./store";
 import {AppInitialStateType, initializeApp} from "./reducer/appReducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {Login} from "../features/login/Login";
 import {Switch, Route, Redirect} from "react-router-dom";
 import {Error404} from "../features/404/Error404";
-import {Dispatch} from "redux";
 import {logout} from "../features/login/reducer/authReducer";
 
 
@@ -31,7 +30,7 @@ export const App: React.FC<AppPropsType> = (props) => {
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
 
-    const dispatch: Dispatch<any> = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!demo) {
