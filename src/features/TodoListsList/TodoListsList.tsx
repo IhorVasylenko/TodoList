@@ -46,23 +46,23 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = React.memo((props
         dispatch(produceTodoList(title));
     }, [dispatch]);
     const changeTodoListTitle = useCallback((todoListId: string, title: string) => {
-        dispatch(modernizeTodoListTitle(todoListId, title));
+        dispatch(modernizeTodoListTitle({todoListId, title}));
     }, [dispatch]);
     const changeTodoListFilter = useCallback((todoListId: string, filter: FilterValuesType) => {
         dispatch(updateTodoListFilter({todoListId, filter}));
     }, [dispatch]);
 
     const removeTask = useCallback((taskId: string, todoListId: string) => {
-        dispatch(deleteTask(taskId, todoListId));
+        dispatch(deleteTask({taskId, todoListId}));
     }, [dispatch]);
     const addTask = useCallback((title: string, todoListId: string) => {
-        dispatch(produceTask(todoListId, title));
+        dispatch(produceTask({todoListId, title}));
     }, [dispatch]);
     const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses, todoListId: string) => {
-        dispatch(modernizeTask(todoListId, taskId, {status}));
+        dispatch(modernizeTask({todoListId, taskId, model: {status}}));
     }, [dispatch]);
     const changeTaskTitle = useCallback((taskId: string, title: string, todoListId: string) => {
-        dispatch(modernizeTask(todoListId, taskId, {title}));
+        dispatch(modernizeTask({todoListId, taskId, model: {title}}));
     }, [dispatch]);
 
     const todoListsComponents = todoLists.map(tl => {

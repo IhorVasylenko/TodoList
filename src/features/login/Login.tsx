@@ -7,17 +7,16 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControl from "@material-ui/core/FormControl";
-import {useFormik} from "formik";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../app/store";
+import {FormikHelpers, useFormik} from "formik";
+import {useSelector} from "react-redux";
+import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {Redirect} from "react-router-dom";
-import {Dispatch} from "redux";
 import {login} from "./reducer/authReducer";
 
 export const Login: React.FC = React.memo(() => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
-    const dispatch: Dispatch<any> = useDispatch();
+    const dispatch = useAppDispatch();
 
     const formik = useFormik({
         initialValues: {
@@ -41,9 +40,15 @@ export const Login: React.FC = React.memo(() => {
             }
             return errors;
         },
-        onSubmit: values => {
-            dispatch(login(values));
-            formik.resetForm();
+        onSubmit: async (values: FormikValueType, formikHelpers: FormikHelpers<FormikValueType>) => {
+            const action = await dispatch(login(values));
+            if (login.rejected.match(action)) {
+                if (action.payload?.fieldsErrors?.length) {
+                    const error = action.payload.fieldsErrors[0];
+                    formikHelpers.setFieldError(error.field, error.error);
+                }
+            }
+            // formik.resetForm();
         },
     });
 
@@ -104,6 +109,11 @@ type FormikErrorType = {
     email?: string
     password?: string
     rememberMe?: boolean
+};
+type FormikValueType = {
+    email: string
+    password: string
+    rememberMe: boolean
 };
 
 

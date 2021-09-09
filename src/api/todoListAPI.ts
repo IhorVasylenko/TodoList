@@ -99,8 +99,13 @@ export type ResponseType<D = {}> = {
     data: D
     resultCode: number
     messages: string[]
-    fieldsErrors: string[]
+    fieldsErrors: FieldsErrorsType[]
 };
+
+export type FieldsErrorsType = {
+    field: string
+    error: string
+}
 
 export type AuthMeType = {
     id: number

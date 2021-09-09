@@ -1,20 +1,29 @@
-import {AppDispatchType, AppRootStateType} from "../store";
+import {AppRootStateType} from "../store";
 import {authAPI} from "../../api/todoListAPI";
 import {ThunkAction} from "redux-thunk";
 import {setIsLoggedIn} from "../../features/login/reducer/authReducer";
-import {Action, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Action, createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
-const initialState = {
-    status: "idle",
-    error: null,
-    addingTodoList: false,
-    isInitialized: false,
-} as AppInitialStateType;
+export const initializeApp = createAsyncThunk("app/initializeApp", async (data, {dispatch}) => {
+    try {
+        let res = await authAPI.me();
+        if (res.data.resultCode === 0) {
+            dispatch(setIsLoggedIn(true));
+        }
+    } finally {
+
+    }
+});
 
 const slice = createSlice({
     name: "app",
-    initialState,
+    initialState: {
+        status: "idle",
+        error: null,
+        addingTodoList: false,
+        isInitialized: false,
+    } as AppInitialStateType,
     reducers: {
         setAppStatus(state, action: PayloadAction<RequestStatusType>) {
             state.status = action.payload;
@@ -29,25 +38,17 @@ const slice = createSlice({
             state.isInitialized = action.payload;
         },
     },
+    extraReducers: (builder) => {
+        builder
+            .addCase(initializeApp.fulfilled, (state) => {
+                state.isInitialized = true;
+            })
+    },
 });
 
 export const appReducer = slice.reducer;
 
-export const {setAppStatus, setIsInitialized, abilityToAddTodoList, setAppError} = slice.actions;
-
-
-// thunks
-export const initializeApp = (): ThunkType => async (dispatch: AppDispatchType) => {
-    try {
-        let res = await authAPI.me();
-        if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedIn(true));
-            dispatch(setIsInitialized(true));
-        }
-    } finally {
-        dispatch(setIsInitialized(true));
-    }
-};
+export const {setAppStatus, abilityToAddTodoList, setAppError} = slice.actions;
 
 
 // types
