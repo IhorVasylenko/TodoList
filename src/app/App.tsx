@@ -10,7 +10,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import {Menu} from "@material-ui/icons";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {TodoListsList} from "../features/TodoListsList/TodoListsList";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./store";
 import {AppInitialStateType, initializeApp} from "./reducer/appReducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";

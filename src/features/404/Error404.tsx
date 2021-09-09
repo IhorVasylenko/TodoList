@@ -1,5 +1,4 @@
 import React from "react";
-import error404 from "../../image/error404.png"
 
 export const Error404: React.FC = React.memo(() => {
     return (
