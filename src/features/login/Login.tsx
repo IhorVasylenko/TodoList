@@ -9,13 +9,14 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControl from "@material-ui/core/FormControl";
 import {FormikHelpers, useFormik} from "formik";
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "../../app/store";
+import {useAppDispatch} from "../../app/store";
 import {Redirect} from "react-router-dom";
-import {login} from "./reducer/authReducer";
+import {login} from "./reducer/auth-reducer";
+import {loginSelectors} from "./index";
 
 export const Login: React.FC = React.memo(() => {
 
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
+    const isLoggedIn = useSelector(loginSelectors.selectIsLoggedIn);
     const dispatch = useAppDispatch();
 
     const formik = useFormik({

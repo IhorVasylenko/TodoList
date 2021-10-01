@@ -9,15 +9,17 @@ import Typography from "@material-ui/core/Typography";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import {Menu} from "@material-ui/icons";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {TodoListsList} from "../features/TodoListsList/TodoListsList";
+import {TodoListsList} from "../features/TodoListsList";
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "./store";
-import {AppInitialStateType, initializeApp} from "./reducer/appReducer";
+import {useAppDispatch} from "./store";
+import {initializeApp} from "./reducer/app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {Login} from "../features/login/Login";
-import {Switch, Route, Redirect} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {Error404} from "../features/404/Error404";
-import {logout} from "../features/login/reducer/authReducer";
+import {logout} from "../features/login/reducer/auth-reducer";
+import {loginSelectors} from "../features/login";
+import {selectAddingTodoList, selectIsInitialized, selectStatus} from "./selectors/selectors";
 
 
 export const App: React.FC<AppPropsType> = (props) => {
@@ -26,9 +28,10 @@ export const App: React.FC<AppPropsType> = (props) => {
         demo = false,
     } = props;
 
-    const appState = useSelector<AppRootStateType, AppInitialStateType>(state => state.app);
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized);
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
+    const appStatus = useSelector(selectStatus);
+    const isAddingTodoList = useSelector(selectAddingTodoList);
+    const isInitialized = useSelector(selectIsInitialized);
+    const isLoggedIn = useSelector(loginSelectors.selectIsLoggedIn);
 
     const dispatch = useAppDispatch();
 
@@ -56,7 +59,7 @@ export const App: React.FC<AppPropsType> = (props) => {
     return (
         <div className={"App"}>
             {
-                appState.status === "loading"
+                appStatus === "loading"
                 && <LinearProgress color={"secondary"}
                                    style={{position: "fixed", bottom: 0, height: "7px", right: 0, left: 0,}}/>
             }
@@ -78,7 +81,7 @@ export const App: React.FC<AppPropsType> = (props) => {
                 <Switch>
                     <Route exact path={"/"}
                            render={
-                               () => <TodoListsList disabled={appState.addingTodoList} demo={demo}/>
+                               () => <TodoListsList disabled={isAddingTodoList} demo={demo}/>
                            }
                     />
                     <Route path={"/login"} render={() => <Login/>}/>

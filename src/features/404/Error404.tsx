@@ -1,11 +1,11 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../app/store";
 import {Redirect} from "react-router-dom";
+import {loginSelectors} from "../login";
 
 export const Error404: React.FC = React.memo(() => {
 
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
+    const isLoggedIn = useSelector(loginSelectors.selectIsLoggedIn);
 
     debugger
 

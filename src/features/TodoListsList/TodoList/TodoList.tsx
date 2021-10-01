@@ -1,27 +1,21 @@
 import React, {useCallback, useEffect} from "react";
+import {Button, IconButton} from "@material-ui/core";
+import {DeleteForever} from "@material-ui/icons";
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
-import {Button, IconButton} from "@material-ui/core";
 import {Task} from "./Task/Task";
-import {TaskStatuses} from "../../../api/todoListAPI";
-import {FilterValuesType, TodoListDomainType} from "../reducers/todoListsReducer";
-import {fetchTask, TaskDomainType} from "../reducers/tasksReducer";
-import {DeleteForever} from "@material-ui/icons";
-import {useAppDispatch} from "../../../app/store";
+import {TaskStatuses} from "../../../api/todoList-API";
+import {useActions, useAppDispatch} from "../../../app/store";
+import {TodoListDomainType} from "../reducers/todoLists-reducer";
+import {TaskDomainType} from "../reducers/tasks-reducer";
+import {tasksActions, todoListsActions} from "../index";
 
 
 export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
 
     const {
         todoList,
-        changeTaskTitle,
-        changeTaskStatus,
-        changeTodoListTitle,
-        removeTodoList,
-        removeTask,
-        changeFilter,
         tasks,
-        addTask,
         demo,
     } = props;
 
@@ -32,15 +26,23 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
         entityStatus,
     } = todoList;
 
-    const dispatch = useAppDispatch();
+    const {changeTodoListFilter, removeTodoList, changeTodoListTitle} = useActions(todoListsActions);
+    const {addTask, fetchTask, removeTask, modernizeTask} = useActions(tasksActions);
 
     useEffect(() => {
         if (demo) {
             return;
         }
-        dispatch(fetchTask(id));
+        fetchTask(id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses, todoListId: string) => {
+        modernizeTask({todoListId, taskId, model: {status}});
+    }, [modernizeTask]);
+    const changeTaskTitle = useCallback((taskId: string, title: string, todoListId: string) => {
+        modernizeTask({todoListId, taskId, model: {title}});
+    }, [modernizeTask]);
 
     const getTaskForTodoList = () => {
         switch (filter) {
@@ -70,24 +72,21 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
         key={t.id}
     />);
 
-    const onClickRemoveTodoListHandler = useCallback(
-        () => removeTodoList(id),
-        [removeTodoList, id]);
-    const addTaskFn = useCallback((title: string) => addTask(title, id),
-        [addTask, id]);
-    const changeTodoListTitleFn = useCallback(
-        (title: string) => changeTodoListTitle(id, title),
-        [changeTodoListTitle, id]);
-    const onClickAllChangeFilterHandler = useCallback(
-        () => changeFilter(id, "all"),
-        [changeFilter, id]);
-    const onClickActiveChangeFilterHandler = useCallback(
-        () => changeFilter(id, "active"),
-        [changeFilter, id]);
-    const onClickCompletedChangeFilterHandler = useCallback(
-        () => changeFilter(id, "completed"),
-        [changeFilter, id]);
-
+    const addTaskFn = useCallback((title: string) => addTask({title, id}), [id]);
+    const onClickRemoveTodoListHandler = useCallback(() => removeTodoList(id), [id]);
+    const changeTodoListTitleFn = useCallback((title: string) => changeTodoListTitle({id, title}), [id]);
+    const onClickAllChangeFilterHandler = useCallback(() => changeTodoListFilter({
+        todoListId: id,
+        filter: "all",
+    }), [id]);
+    const onClickActiveChangeFilterHandler = useCallback(() => changeTodoListFilter({
+        todoListId: id,
+        filter: "active"
+    }), [id]);
+    const onClickCompletedChangeFilterHandler = useCallback(() => changeTodoListFilter({
+        todoListId: id,
+        filter: "completed"
+    }), [id]);
 
     return (
         <div>
@@ -132,13 +131,6 @@ export const TodoList: React.FC<TodoListPropsType> = React.memo((props) => {
 export type TodoListPropsType = {
     todoList: TodoListDomainType
     tasks: TaskDomainType[]
-    addTask: (title: string, todoListId: string) => void
-    removeTask: (taskId: string, todoListId: string) => void
-    changeFilter: (todoListId: string, filter: FilterValuesType) => void
-    changeTaskStatus: (taskId: string, status: TaskStatuses, todoListId: string) => void
-    removeTodoList: (todoListId: string) => void
-    changeTaskTitle: (taskId: string, title: string, todoListId: string) => void
-    changeTodoListTitle: (todoListId: string, title: string) => void
     demo?: boolean
 };
 

@@ -1,4 +1,4 @@
-import {authReducer, setIsLoggedIn} from "./authReducer";
+import {authReducer, setIsLoggedIn} from "./auth-reducer";
 
 let startState: { isLoggedIn: boolean };
 

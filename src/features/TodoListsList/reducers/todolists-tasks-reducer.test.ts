@@ -1,5 +1,6 @@
-import {produceTodoList, TodoListDomainType, todoListsReducer} from "./todoListsReducer";
-import {tasksReducer, TasksStateType} from "./tasksReducer";
+import {TodoListDomainType, todoListsReducer} from "./todoLists-reducer";
+import {tasksReducer, TasksStateType} from "./tasks-reducer";
+import {addTodoList} from "./actions/todoLists-actions";
 
 
 test("ids should be equals", () => {
@@ -14,7 +15,7 @@ test("ids should be equals", () => {
         entityStatus: "idle",
     };
 
-    const action = produceTodoList.fulfilled(newTodoList, "requestId", "newTodoList");
+    const action = addTodoList.fulfilled(newTodoList, "requestId", "newTodoList");
 
     const endTasksState = tasksReducer(startTasksState, action)
     const endTodoListsState = todoListsReducer(startTodoListsState, action)

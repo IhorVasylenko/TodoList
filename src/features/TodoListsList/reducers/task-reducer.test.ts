@@ -1,6 +1,8 @@
-import {deleteTask, fetchTask, modernizeTask, produceTask, tasksReducer, TasksStateType} from "./tasksReducer";
-import {deleteTodoList, fetchTodoLists, produceTodoList, TodoListDomainType} from "./todoListsReducer";
-import {TaskStatuses, TaskPriorities} from "../../../api/todoListAPI";
+import {tasksReducer, TasksStateType} from "./tasks-reducer";
+import {TodoListDomainType} from "./todoLists-reducer";
+import {TaskStatuses, TaskPriorities} from "../../../api/todoList-API";
+import {removeTask, fetchTask, modernizeTask, addTask} from "./actions/tasks-actions";
+import {removeTodoList, fetchTodoLists, addTodoList} from "./actions/todoLists-actions";
 
 let startState: TasksStateType
 
@@ -40,7 +42,7 @@ beforeEach(() => {
 
 test("correct task should be deleted from correct array", () => {
     let updateModel = {todoListId: "todolistId2", taskId: "2"};
-    const action = deleteTask.fulfilled(updateModel, 'requestID', updateModel);
+    const action = removeTask.fulfilled(updateModel, 'requestID', updateModel);
 
     const endState = tasksReducer(startState, action);
 
@@ -85,7 +87,7 @@ test("correct task should be added to correct array", () => {
         order: 0,
         addedDate: '',
     };
-    const action = produceTask.fulfilled(task, "requestId", {todoListId: task.todoListId, title: task.title});
+    const action = addTask.fulfilled(task, "requestId", {id: task.todoListId, title: task.title});
 
     const endState = tasksReducer(startState, action);
 
@@ -126,7 +128,7 @@ test("new array should be added when new todolist is added", () => {
         addedDate: "",
         entityStatus: "idle",
     };
-    const action = produceTodoList.fulfilled(newTodoList, "requestId", "newTodoList");
+    const action = addTodoList.fulfilled(newTodoList, "requestId", "newTodoList");
 
     const endState = tasksReducer(startState, action);
 
@@ -142,7 +144,7 @@ test("new array should be added when new todolist is added", () => {
 });
 
 test("property with todolistId should be deleted", () => {
-    const action = deleteTodoList.fulfilled("todolistId2", "requestId", "todolistId2");
+    const action = removeTodoList.fulfilled("todolistId2", "requestId", "todolistId2");
 
     const endState = tasksReducer(startState, action);
 

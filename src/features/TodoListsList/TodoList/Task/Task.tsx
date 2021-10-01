@@ -3,8 +3,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import {Delete} from "@material-ui/icons";
-import {TaskStatuses} from "../../../../api/todoListAPI";
-import {TaskDomainType} from "../../reducers/tasksReducer";
+import {TaskStatuses} from "../../../../api/todoList-API";
+import {TaskDomainType} from "../../reducers/tasks-reducer";
 
 
 export const Task: React.FC<TaskPropsType> = React.memo((props) => {
@@ -18,7 +18,7 @@ export const Task: React.FC<TaskPropsType> = React.memo((props) => {
     } = props;
 
     const removeTaskFn = useCallback(
-        () => removeTask(task.id, todoListId),
+        () => removeTask({taskId: task.id, todoListId}),
         [removeTask, task.id, todoListId]);
 
     const onChengStatusHandler = (e: ChangeEvent<HTMLInputElement>) =>
@@ -56,6 +56,6 @@ export type TaskPropsType = {
     todoListId: string
     changeTaskStatus: (taskId: string, status: TaskStatuses, todoListId: string) => void
     changeTaskTitle: (taskId: string, title: string, todoListId: string) => void
-    removeTask: (taskId: string, todoListId: string) => void
+    removeTask: (params: {taskId: string, todoListId: string}) => void
     task: TaskDomainType
 };

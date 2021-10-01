@@ -5,13 +5,13 @@ import {App} from "./app/App";
 import * as serviceWorker from "./serviceWorker";
 import {store} from "./app/store";
 import {Provider} from "react-redux";
-import {HashRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 
 ReactDOM.render(
     <Provider store={store}>
-        <HashRouter>
+        <BrowserRouter>
             <App />
-        </HashRouter>
+        </BrowserRouter>
     </Provider>, document.getElementById("root"));
 
 serviceWorker.unregister();
